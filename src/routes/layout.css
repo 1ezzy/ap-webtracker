@@ -63,17 +63,17 @@
 	--color-accent-900: hsl(44 40% 20%);
 	--color-accent: var(--color-accent-500);
 
-	/* surface — #333333 */
-	--color-surface-content: hsl(0 0% 95%);
-	--color-surface-100: hsl(0 0% 20%);
-	--color-surface-200: hsl(0 0% 25%);
-	--color-surface-300: hsl(0 0% 31%);
-	--color-surface-400: hsl(0 0% 38%);
-	--color-surface-500: hsl(0 0% 47%);
-	--color-surface-600: hsl(0 0% 58%);
-	--color-surface-700: hsl(0 0% 69%);
-	--color-surface-800: hsl(0 0% 80%);
-	--color-surface-900: hsl(0 0% 90%);
+	/* surface — #444444 */
+	--color-surface-content: hsl(0 0% 93%);
+	--color-surface-100: hsl(0 0% 27%);
+	--color-surface-200: hsl(0 0% 31%);
+	--color-surface-300: hsl(0 0% 36%);
+	--color-surface-400: hsl(0 0% 43%);
+	--color-surface-500: hsl(0 0% 52%);
+	--color-surface-600: hsl(0 0% 62%);
+	--color-surface-700: hsl(0 0% 73%);
+	--color-surface-800: hsl(0 0% 83%);
+	--color-surface-900: hsl(0 0% 92%);
 	--color-surface: var(--color-surface-100);
 
 	/* other colors */
