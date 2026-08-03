@@ -1,4 +1,4 @@
 @utility table-cell {
 	@apply px-4 py-2;
-	@apply border-r border-primary-100;
+	@apply border-r-2 border-primary-100;
 }
