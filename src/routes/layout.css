@@ -3,6 +3,8 @@
 @import 'tailwindcss';
 @plugin '@tailwindcss/typography';
 
+@import './utility.css';
+
 @theme {
 	/* text trim utility variables */
 	--texttrim-both: trim-both;

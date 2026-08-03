@@ -7,6 +7,10 @@ settings:
 importers:
 
   .:
+    dependencies:
+      archipelago.js:
+        specifier: ^2.1.0
+        version: 2.1.0
     devDependencies:
       '@eslint/js':
         specifier: ^10.0.1
@@ -689,6 +693,10 @@ packages:
 
   ajv@6.15.0:
     resolution: {integrity: sha512-fgFx7Hfoq60ytK2c7DhnF8jIvzYgOMxfugjLOSMHjLIPgenqa7S7oaagATUq99mV6IYvN2tRmC0wnTYX6iPbMw==}
+
+  archipelago.js@2.1.0:
+    resolution: {integrity: sha512-9Zq/lyhSHgUfzHNAm5NyBk1Kl10hf55/jQ1Navz6Z/Wz49bd4MRzbS8CcWDnQd7IoBH8s1p4cVn69iyHaljQKA==}
+    engines: {node: '>= 18.0.0'}
 
   aria-query@5.3.1:
     resolution: {integrity: sha512-Z/ZeOgVl7bcSYZ/u/rh0fOpvEpq//LZmdbkXyc7syVzjPAhfOa9ebsdTSjEBDU4vs5nC98Kfduj1uFo0qyET3g==}
@@ -2007,6 +2015,8 @@ snapshots:
       fast-json-stable-stringify: 2.1.0
       json-schema-traverse: 0.4.1
       uri-js: 4.4.1
+
+  archipelago.js@2.1.0: {}
 
   aria-query@5.3.1: {}
 

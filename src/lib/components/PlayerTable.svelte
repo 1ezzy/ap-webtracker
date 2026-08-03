@@ -1,15 +1,24 @@
 <script lang="ts">
+	import { archipelago } from '$lib/clients/archipelago-client.svelte';
 </script>
 
-<table class="w-full rounded-2xl border border-primary-100">
-	<thead class="bg-primary">
-		<tr class="h-12">
-			<th class="px-4 py-2">Test</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr class="h-8">
-			<td class="px-4 py-2">Test</td>
-		</tr>
-	</tbody>
-</table>
+{#if archipelago.connected === false}
+	<span>Loading...</span>
+{:else}
+	<table class="w-fit rounded-2xl border border-primary-100">
+		<thead class="bg-primary">
+			<tr class="h-12">
+				<th class="table-cell">Player</th>
+				<th class="table-cell">Game</th>
+			</tr>
+		</thead>
+		<tbody>
+			{#each archipelago.players as player (player.name)}
+				<tr class="h-8 border-t border-primary-100">
+					<td class="table-cell">{player.name}</td>
+					<td class="table-cell">{player.game}</td>
+				</tr>
+			{/each}
+		</tbody>
+	</table>
+{/if}

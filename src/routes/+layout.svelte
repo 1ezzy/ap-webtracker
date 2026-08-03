@@ -1,7 +1,17 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
+	import { archipelago } from '$lib/clients/archipelago-client.svelte';
+	import logo from '$lib/assets/images/archipelago-logo.webp';
 	import './layout.css';
 
 	let { children } = $props();
+
+	onMount(async () => {
+		await archipelago
+			.connect('archipelago.gg:34413', 'ezzy puzzle')
+			.then(() => console.log('Connected to the Archipelago server!'))
+			.catch(console.error);
+	});
 </script>
 
 <svelte:head>
@@ -12,6 +22,12 @@
 	/>
 </svelte:head>
 
-<div class="flex h-full min-h-screen w-full bg-surface text-primary-100">
+<div class="flex h-full min-h-screen w-full flex-col bg-surface text-primary-100">
+	<header class="w-full px-6 py-4 2xl:px-12 2xl:py-8">
+		<div class="flex w-fit flex-row items-center justify-center gap-4">
+			<img class="aspect-square h-8 w-fit" src={logo} alt="Archipelago Logo" />
+			<h1 class="text-fluid-lg">Archipelago Webtracker</h1>
+		</div>
+	</header>
 	{@render children()}
 </div>
