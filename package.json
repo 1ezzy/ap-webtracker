@@ -36,6 +36,7 @@
 		"vite": "^8.0.16"
 	},
 	"dependencies": {
+		"@lucide/svelte": "^1.28.0",
 		"archipelago.js": "^2.1.0"
 	}
 }
