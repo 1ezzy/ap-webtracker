@@ -8,11 +8,11 @@
 	<div class="flex h-full w-full flex-col gap-4 overflow-y-hidden">
 		<h2 class="flex items-center gap-2 text-fluid-lg">
 			Room Info
-			<span class="text-fluid-sm text-primary-200"> ({archipelago.players.length} players)</span>
+			<span class="text-fluid-sm"> ({archipelago.players.length} players)</span>
 		</h2>
 		<div class="overflow-y-scroll text-fluid-xs">
 			<table class="h-full w-full rounded-2xl border-2 border-primary-100 bg-surface-200">
-				<thead class="bg-primary text-primary-content">
+				<thead class="bg-accent text-primary-content">
 					<tr class="h-12">
 						<th class="table-cell">Player</th>
 						<th class="table-cell">Game</th>

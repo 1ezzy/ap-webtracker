@@ -52,17 +52,17 @@
 	--color-secondary-900: hsl(233 44% 14%);
 	--color-secondary: var(--color-secondary-500);
 
-	/* accent — light yellow, #EEE391 */
-	--color-accent-content: hsl(53 55% 12%);
-	--color-accent-100: hsl(53 75% 97%);
-	--color-accent-200: hsl(53 74% 93%);
-	--color-accent-300: hsl(53 73% 88%);
-	--color-accent-400: hsl(53 72% 84%);
-	--color-accent-500: hsl(53 72% 78%);
-	--color-accent-600: hsl(53 65% 64%);
-	--color-accent-700: hsl(53 58% 48%);
-	--color-accent-800: hsl(53 52% 32%);
-	--color-accent-900: hsl(53 48% 20%);
+	/* accent — archipelago orange, #D9A07D */
+	--color-accent-content: hsl(23 55% 12%);
+	--color-accent-100: hsl(23 65% 97%);
+	--color-accent-200: hsl(23 62% 92%);
+	--color-accent-300: hsl(23 60% 85%);
+	--color-accent-400: hsl(23 57% 77%);
+	--color-accent-500: hsl(23 55% 67%);
+	--color-accent-600: hsl(23 50% 55%);
+	--color-accent-700: hsl(23 48% 42%);
+	--color-accent-800: hsl(23 50% 28%);
+	--color-accent-900: hsl(23 48% 17%);
 	--color-accent: var(--color-accent-500);
 
 	/* surface — #444444 */

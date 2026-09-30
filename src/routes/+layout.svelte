@@ -22,7 +22,7 @@
 	/>
 </svelte:head>
 
-<div class="grid h-screen w-full grid-rows-[min-content_1fr] bg-surface text-primary-100">
+<div class="grid h-screen w-full grid-rows-[min-content_1fr] bg-surface text-white">
 	<header class="h-fit w-full px-6 py-4 2xl:px-12 2xl:py-8">
 		<div class="flex w-fit flex-row items-center justify-center gap-4">
 			<img class="aspect-square h-8 w-fit" src={logo} alt="Archipelago Logo" />
