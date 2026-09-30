@@ -16,53 +16,53 @@
 	--breakpoint-4xl: 160rem;
 	--breakpoint-5xl: 200rem;
 
-	/* utopia fluid type scale — 320px to 1440px viewport, 1.125 min ratio / 1.25 max ratio above base */
-	--text-fluid-xs: clamp(0.79rem, 0.762rem + 0.141vw, 0.889rem);
-	--text-fluid-sm: clamp(0.889rem, 0.857rem + 0.159vw, 1rem);
-	--text-fluid-base: clamp(1rem, 0.964rem + 0.179vw, 1.125rem);
-	--text-fluid-lg: clamp(1.125rem, 1.045rem + 0.402vw, 1.406rem);
-	--text-fluid-xl: clamp(1.266rem, 1.125rem + 0.703vw, 1.758rem);
-	--text-fluid-2xl: clamp(1.424rem, 1.203rem + 1.105vw, 2.198rem);
-	--text-fluid-3xl: clamp(1.602rem, 1.275rem + 1.636vw, 2.747rem);
-	--text-fluid-4xl: clamp(1.802rem, 1.336rem + 2.33vw, 3.433rem);
+	/* utopia fluid type scale — 320px to 2560px viewport, 1.125 min ratio / 1.25 max ratio above base */
+	--text-fluid-xs: clamp(0.79rem, 0.776rem + 0.071vw, 0.889rem);
+	--text-fluid-sm: clamp(0.889rem, 0.873rem + 0.079vw, 1rem);
+	--text-fluid-base: clamp(1rem, 0.982rem + 0.089vw, 1.125rem);
+	--text-fluid-lg: clamp(1.125rem, 1.085rem + 0.201vw, 1.406rem);
+	--text-fluid-xl: clamp(1.266rem, 1.196rem + 0.351vw, 1.758rem);
+	--text-fluid-2xl: clamp(1.424rem, 1.313rem + 0.553vw, 2.198rem);
+	--text-fluid-3xl: clamp(1.602rem, 1.438rem + 0.818vw, 2.747rem);
+	--text-fluid-4xl: clamp(1.802rem, 1.569rem + 1.165vw, 3.433rem);
 
-	/* primary — #DD6E42 */
-	--color-primary-content: hsl(17 70% 10%);
-	--color-primary-100: hsl(17 87% 97%);
-	--color-primary-200: hsl(17 86% 90%);
-	--color-primary-300: hsl(17 85% 80%);
-	--color-primary-400: hsl(17 85% 66%);
-	--color-primary-500: hsl(17 85% 53%);
-	--color-primary-600: hsl(17 80% 44%);
-	--color-primary-700: hsl(17 77% 34%);
-	--color-primary-800: hsl(17 73% 22%);
-	--color-primary-900: hsl(17 70% 13%);
+	/* primary — archipelago pink-purple, #CA94C2 */
+	--color-primary-content: hsl(309 42% 14%);
+	--color-primary-100: hsl(309 48% 97%);
+	--color-primary-200: hsl(309 46% 93%);
+	--color-primary-300: hsl(309 44% 87%);
+	--color-primary-400: hsl(309 40% 80%);
+	--color-primary-500: hsl(309 38% 70%);
+	--color-primary-600: hsl(309 40% 56%);
+	--color-primary-700: hsl(309 42% 42%);
+	--color-primary-800: hsl(309 44% 28%);
+	--color-primary-900: hsl(309 42% 16%);
 	--color-primary: var(--color-primary-500);
 
-	/* secondary — #4F6D7A */
-	--color-secondary-content: hsl(198 52% 10%);
-	--color-secondary-100: hsl(198 65% 97%);
-	--color-secondary-200: hsl(198 60% 90%);
-	--color-secondary-300: hsl(198 55% 79%);
-	--color-secondary-400: hsl(198 50% 59%);
-	--color-secondary-500: hsl(198 48% 41%);
-	--color-secondary-600: hsl(198 50% 35%);
-	--color-secondary-700: hsl(198 52% 28%);
-	--color-secondary-800: hsl(198 54% 21%);
-	--color-secondary-900: hsl(198 56% 14%);
+	/* secondary — archipelago blue, #767EBD */
+	--color-secondary-content: hsl(233 45% 12%);
+	--color-secondary-100: hsl(233 55% 97%);
+	--color-secondary-200: hsl(233 52% 91%);
+	--color-secondary-300: hsl(233 48% 82%);
+	--color-secondary-400: hsl(233 44% 70%);
+	--color-secondary-500: hsl(233 40% 58%);
+	--color-secondary-600: hsl(233 42% 47%);
+	--color-secondary-700: hsl(233 44% 36%);
+	--color-secondary-800: hsl(233 46% 24%);
+	--color-secondary-900: hsl(233 44% 14%);
 	--color-secondary: var(--color-secondary-500);
 
-	/* accent — #E8DAB2 */
-	--color-accent-content: hsl(44 40% 12%);
-	--color-accent-100: hsl(44 56% 97%);
-	--color-accent-200: hsl(44 55% 93%);
-	--color-accent-300: hsl(44 55% 88%);
-	--color-accent-400: hsl(44 54% 84%);
-	--color-accent-500: hsl(44 54% 80%);
-	--color-accent-600: hsl(44 50% 64%);
-	--color-accent-700: hsl(44 46% 48%);
-	--color-accent-800: hsl(44 42% 32%);
-	--color-accent-900: hsl(44 40% 20%);
+	/* accent — light yellow, #EEE391 */
+	--color-accent-content: hsl(53 55% 12%);
+	--color-accent-100: hsl(53 75% 97%);
+	--color-accent-200: hsl(53 74% 93%);
+	--color-accent-300: hsl(53 73% 88%);
+	--color-accent-400: hsl(53 72% 84%);
+	--color-accent-500: hsl(53 72% 78%);
+	--color-accent-600: hsl(53 65% 64%);
+	--color-accent-700: hsl(53 58% 48%);
+	--color-accent-800: hsl(53 52% 32%);
+	--color-accent-900: hsl(53 48% 20%);
 	--color-accent: var(--color-accent-500);
 
 	/* surface — #444444 */
@@ -81,12 +81,12 @@
 	/* other colors */
 	--color-info: hsl(210 65% 62%);
 	--color-info-content: hsl(210 65% 10%);
-	--color-success: hsl(142 50% 57%);
-	--color-success-content: hsl(142 50% 10%);
+	--color-success: hsl(120 39% 55%);
+	--color-success-content: hsl(120 40% 10%);
 	--color-warning: hsl(48 70% 64%);
 	--color-warning-content: hsl(48 70% 10%);
-	--color-danger: hsl(0 65% 64%);
-	--color-danger-content: hsl(0 65% 10%);
+	--color-danger: hsl(351 43% 55%);
+	--color-danger-content: hsl(351 45% 10%);
 }
 
 :root {

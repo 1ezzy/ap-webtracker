@@ -4,5 +4,17 @@
 }
 
 @utility panel {
-	@apply h-full w-full rounded-2xl p-4;
+	@apply h-fit w-full rounded-2xl p-4;
+}
+
+@utility button {
+	@apply flex aspect-square items-center justify-center bg-surface-100;
+}
+
+@utility button-sm {
+	@apply h-4 rounded-md 2xl:h-6;
+}
+
+@utility button-md {
+	@apply h-6 rounded-lg 2xl:h-8;
 }

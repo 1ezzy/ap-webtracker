@@ -10,8 +10,8 @@
 			Room Info
 			<span class="text-fluid-sm text-primary-200"> ({archipelago.players.length} players)</span>
 		</h2>
-		<div class="overflow-y-scroll">
-			<table class="h-full w-full rounded-2xl border-2 border-primary-100">
+		<div class="overflow-y-scroll text-fluid-xs">
+			<table class="h-full w-full rounded-2xl border-2 border-primary-100 bg-surface-200">
 				<thead class="bg-primary text-primary-content">
 					<tr class="h-12">
 						<th class="table-cell">Player</th>
