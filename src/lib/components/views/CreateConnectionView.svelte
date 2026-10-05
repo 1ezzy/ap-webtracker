@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { ListCheck } from '@lucide/svelte';
-	import Tooltip from '../Tooltip.svelte';
+	import Tooltip from '../atomics/Tooltip.svelte';
 	import { archipelago } from '$lib/clients/archipelago-client.svelte';
 
 	async function connectClientToServer(event: SubmitEvent) {
