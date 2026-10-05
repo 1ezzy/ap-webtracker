@@ -1,17 +1,8 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
-	import { archipelago } from '$lib/clients/archipelago-client.svelte';
 	import logo from '$lib/assets/images/archipelago-logo.webp';
 	import './layout.css';
 
 	let { children } = $props();
-
-	onMount(async () => {
-		await archipelago
-			.connect('archipelago.gg:40309', 'charlie civ')
-			.then(() => console.log('Connected to the Archipelago server!'))
-			.catch(console.error);
-	});
 </script>
 
 <svelte:head>

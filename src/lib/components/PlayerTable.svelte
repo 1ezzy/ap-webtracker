@@ -1,8 +1,10 @@
 <script lang="ts">
 	import { archipelago } from '$lib/clients/archipelago-client.svelte';
+
+	let connected = $derived(archipelago.connected);
 </script>
 
-{#if archipelago.connected === false}
+{#if connected === false}
 	<span>Loading...</span>
 {:else}
 	<div class="flex h-full w-full flex-col gap-4 overflow-y-hidden">

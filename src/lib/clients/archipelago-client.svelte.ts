@@ -25,13 +25,14 @@ class ArchipelagoStore {
 		});
 	}
 
-	async connect(url: string, slotName: string) {
+	async connect(url: string, slotName: string, password?: string) {
 		if (this.connecting || this.connected) {
 			return;
 		}
 
+		this.connecting = true;
 		try {
-			await this.client.login(url, slotName);
+			await this.client.login(url, slotName, undefined, { password });
 		} finally {
 			this.connecting = false;
 		}

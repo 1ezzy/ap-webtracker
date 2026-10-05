@@ -9,6 +9,7 @@
 
 @utility button {
 	@apply flex aspect-square items-center justify-center bg-surface-100;
+	@apply hover:cursor-pointer;
 }
 
 @utility button-sm {
@@ -17,4 +18,21 @@
 
 @utility button-md {
 	@apply h-6 rounded-lg 2xl:h-8;
+}
+
+@utility button-md {
+	@apply h-8 rounded-lg 2xl:h-10;
+}
+
+@utility input {
+	@apply h-10 px-2;
+}
+
+@utility input-secondary {
+	@apply rounded-lg border-2 border-secondary-700 bg-secondary-100 text-secondary-content;
+}
+
+@utility tooltip {
+	@apply absolute rounded-md border-2 border-white bg-surface-100 p-2 text-center text-fluid-xs;
+	@apply top-1 [position-area:center_bottom];
 }
