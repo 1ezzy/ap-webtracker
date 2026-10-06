@@ -36,3 +36,48 @@
 	@apply absolute rounded-md border-2 border-white bg-surface-100 p-2 text-center text-fluid-xs;
 	@apply top-1 [position-area:center_bottom];
 }
+
+@utility loader {
+	--size: 1px;
+
+	width: calc(48 * var(--size));
+	height: calc(48 * var(--size));
+	display: block;
+	margin: calc(15 * var(--size)) auto;
+	position: relative;
+	color: var(--color-primary);
+	box-sizing: border-box;
+	animation: rotation 1s linear infinite;
+}
+.loader::after,
+.loader::before {
+	content: '';
+	box-sizing: border-box;
+	position: absolute;
+	width: calc(24 * var(--size));
+	height: calc(24 * var(--size));
+	top: 50%;
+	left: 50%;
+	transform: scale(0.5) translate(0, 0);
+	background-color: var(--color-primary);
+	border-radius: 50%;
+	animation: animloader 2s infinite ease-in-out;
+}
+.loader::before {
+	background-color: var(--color-white);
+	transform: scale(0.5) translate(calc(-48 * var(--size)), calc(-48 * var(--size)));
+}
+
+@keyframes rotation {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}
+@keyframes animloader {
+	50% {
+		transform: scale(1) translate(-50%, -50%);
+	}
+}

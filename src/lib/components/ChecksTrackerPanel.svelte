@@ -1,7 +1,10 @@
 <script lang="ts">
+	import { connectionManager } from '$lib/clients/connection-manager.svelte';
+
+	let connections = $derived(connectionManager.connections);
 </script>
 
-{#snippet gamePanel(gameName: string, gamePlayer: string, gameChecks: number[])}
+{#snippet gamePanel(gameName: string | null, gamePlayer: string, gameChecks: number[])}
 	<div class="flex h-full w-fit flex-col gap-4 rounded-lg bg-secondary-500 px-4 py-2">
 		<div class="flex flex-col">
 			<span class="text-fluid-sm">{gameName}</span>
@@ -21,9 +24,12 @@
 	<div class="panel bg-secondary-400">
 		<div class="flex h-full w-full flex-col gap-4">
 			<div class="flex w-full gap-x-4">
-				{@render gamePanel(`Jigsaw`, 'I Miss Title Fig', [498, 503])}
-				{@render gamePanel(`Luigi's Mansion`, 'weegee', [680, 742])}
-				{@render gamePanel(`Civilization VI`, 'charlie civ', [192, 270])}
+				{#each connections as connection (connection.id)}
+					{@render gamePanel(connection.gameName, connection.slotName, [
+						connection.checksFound,
+						connection.checksTotal
+					])}
+				{/each}
 			</div>
 		</div>
 	</div>

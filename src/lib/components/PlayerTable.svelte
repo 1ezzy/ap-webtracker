@@ -1,7 +1,10 @@
 <script lang="ts">
-	import { archipelago } from '$lib/clients/archipelago-client.svelte';
+	import { connectionManager } from '$lib/clients/connection-manager.svelte';
 
-	let connected = $derived(archipelago.connected);
+	let connected = $derived(connectionManager.connected);
+	let players = $derived(connectionManager.players);
+
+	let activePlayerSlotIDs = $derived([...connectionManager.connectedSlots]);
 </script>
 
 {#if connected === false}
@@ -10,7 +13,7 @@
 	<div class="flex h-full w-full flex-col gap-4 overflow-y-hidden">
 		<h2 class="flex items-center gap-2 text-fluid-lg">
 			Room Info
-			<span class="text-fluid-sm"> ({archipelago.players.length} players)</span>
+			<span class="text-fluid-sm"> ({players.length} players)</span>
 		</h2>
 		<div class="overflow-y-scroll text-fluid-xs">
 			<table class="h-full w-full rounded-2xl border-2 border-primary-100 bg-surface-200">
@@ -21,8 +24,11 @@
 					</tr>
 				</thead>
 				<tbody>
-					{#each archipelago.players as player (player?.name)}
-						<tr class="h-8 border-t-2 border-primary-100">
+					{#each players as player, index (player?.name)}
+						<tr
+							class="h-8 border-t-2 border-primary-100"
+							class:text-success={activePlayerSlotIDs.includes(index)}
+						>
 							<td class="table-cell">{player?.name}</td>
 							<td class="table-cell">{player?.game}</td>
 						</tr>

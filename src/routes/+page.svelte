@@ -1,16 +1,16 @@
 <script lang="ts">
-	import { archipelago } from '$lib/clients/archipelago-client.svelte';
+	import { connectionManager } from '$lib/clients/connection-manager.svelte';
 	import ConnectedView from '$lib/components/views/ConnectedView.svelte';
 	import CreateConnectionView from '$lib/components/views/CreateConnectionView.svelte';
 
-	let connected = $derived(archipelago.connected);
-	let connecting = $derived(archipelago.connecting);
+	let connected = $derived(connectionManager.connected);
+	let connecting = $derived(connectionManager.connecting);
 </script>
 
 {#if !connected && !connecting}
 	<CreateConnectionView></CreateConnectionView>
 {:else if !connected && connecting}
-	<!--Spinner here-->
+	<span class="loader my-auto"></span>
 {:else}
 	<ConnectedView></ConnectedView>
 {/if}

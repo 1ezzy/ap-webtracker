@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { ListCheck } from '@lucide/svelte';
 	import Tooltip from '../atomics/Tooltip.svelte';
-	import { archipelago } from '$lib/clients/archipelago-client.svelte';
+	import { connectionManager } from '$lib/clients/connection-manager.svelte';
 
 	async function connectClientToServer(event: SubmitEvent) {
 		event.preventDefault();
@@ -11,8 +11,8 @@
 		const password = data.get('password')?.toString() || undefined;
 		const slotName = data.get('slotName')?.toString() ?? 'Player1';
 
-		await archipelago
-			.connect(`${serverAddress}:${portNum}`, slotName, password)
+		await connectionManager
+			.createConnection(`${serverAddress}:${portNum}`, slotName, password ?? '')
 			.then(() => console.log('Connected to the Archipelago server!'))
 			.catch(console.error);
 	}
