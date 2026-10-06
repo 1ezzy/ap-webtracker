@@ -23,7 +23,7 @@
 	<div class="panel bg-accent">
 		<div class="flex w-full flex-col gap-2">
 			{#each connections as connection, i (connection.slotName)}
-				{@render connectionEntry(connection.slotName, i)}
+				{@render connectionEntry(connection.slotName, i + 1)}
 			{/each}
 		</div>
 	</div>
