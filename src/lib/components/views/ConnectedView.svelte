@@ -3,7 +3,7 @@
 	import ChecksTrackerPanel from '$lib/components/ChecksTrackerPanel.svelte';
 	import PlayerTable from '$lib/components/PlayerTable.svelte';
 	import GameTrackerPanel from '$lib/components/GameTrackerPanel.svelte';
-	import MessagePanel from '../MessagePanel.svelte.svelte';
+	import MessagePanel from '$lib/components/MessagePanel.svelte';
 
 	let playerOpen = $state(false);
 	let messageOpen = $state(false);
@@ -20,7 +20,7 @@
 >
 	<section
 		class={[
-			'grid h-full min-h-0 w-full grid-rows-[min_content-auto] content-start justify-items-center overflow-hidden',
+			'grid h-full min-h-0 w-full grid-rows-[min-content_1fr] content-start justify-items-center overflow-hidden',
 			'gap-8 2xl:gap-16'
 		]}
 	>
