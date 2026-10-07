@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { slide } from 'svelte/transition';
 	import { connectionManager } from '$lib/clients/connection-manager.svelte';
 	import { ChevronRight } from '@lucide/svelte';
 
@@ -9,25 +8,23 @@
 	let { open = $bindable(false) } = $props();
 </script>
 
-<div class="flex h-full w-full flex-col gap-4 overflow-y-hidden">
-	<button
-		class="flex h-fit w-full items-center justify-between"
-		onclick={() => (open = !open)}
-		onkeydown={() => (open = !open)}
-	>
+<details class="flex h-full w-full flex-col overflow-hidden">
+	<summary class="flex h-fit w-full items-center justify-between" onclick={() => (open = !open)}>
 		<h2 class="flex items-center gap-2 text-fluid-lg">
 			Room Info
 			<span class="text-fluid-sm"> ({players.length} players)</span>
 		</h2>
-		<ChevronRight class={['transition duration-200', open ? 'rotate-90' : '']}></ChevronRight>
-	</button>
-	{#if open}
-		<div class="overflow-y-scroll text-fluid-xs" transition:slide={{ duration: 200, axis: 'y' }}>
-			<table class="h-full w-full rounded-2xl border-2 border-primary-100 bg-surface-200">
+		<ChevronRight class={['transition duration-300', open ? 'rotate-90' : '']}></ChevronRight>
+	</summary>
+	<div class="min-h-0 overflow-y-scroll pt-4">
+		<div class="h-full min-h-0 text-fluid-xs">
+			<table
+				class="h-full w-full table-fixed rounded-2xl border-2 border-primary-100 bg-surface-200"
+			>
 				<thead class="bg-accent text-primary-content">
 					<tr class="h-12">
-						<th class="table-cell">Player</th>
-						<th class="table-cell">Game</th>
+						<th class="table-cell w-1/2">Player</th>
+						<th class="table-cell w-1/2">Game</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -43,5 +40,5 @@
 				</tbody>
 			</table>
 		</div>
-	{/if}
-</div>
+	</div>
+</details>

@@ -1,5 +1,5 @@
 @utility table-cell {
-	@apply p-2 text-fluid-base;
+	@apply p-2 text-fluid-base wrap-break-word;
 	@apply border-r-2 border-primary-100;
 }
 

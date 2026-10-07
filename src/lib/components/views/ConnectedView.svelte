@@ -7,6 +7,9 @@
 
 	let playerOpen = $state(false);
 	let messageOpen = $state(false);
+
+	let playerRow = $derived(playerOpen ? '1fr' : 'min-content');
+	let messageRow = $derived(messageOpen ? '1fr' : 'min-content');
 </script>
 
 <div
@@ -17,13 +20,18 @@
 >
 	<section
 		class={[
-			'grid min-h-0 w-full grid-rows-[auto_min(min_content,1fr)_min(min_content,1fr)] justify-items-center overflow-hidden',
-			'gap-y-8 2xl:gap-y-16'
+			'grid h-full min-h-0 w-full grid-rows-[min_content-auto] content-start justify-items-center overflow-hidden',
+			'gap-8 2xl:gap-16'
 		]}
 	>
 		<ConnectionsPanel></ConnectionsPanel>
-		<PlayerTable bind:open={playerOpen}></PlayerTable>
-		<MessagePanel bind:open={messageOpen}></MessagePanel>
+		<div
+			class={['grid h-full min-h-0 w-full', 'gap-4 2xl:gap-8']}
+			style:grid-template-rows={`${playerRow} ${messageRow}`}
+		>
+			<PlayerTable bind:open={playerOpen}></PlayerTable>
+			<MessagePanel bind:open={messageOpen}></MessagePanel>
+		</div>
 	</section>
 	<section
 		class={[
