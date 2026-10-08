@@ -2,44 +2,67 @@
 	import { CircleX, ListCheck } from '@lucide/svelte';
 	import { connectionManager } from '$lib/clients/connection-manager.svelte';
 	import Tooltip from '$lib/components/atomics/Tooltip.svelte';
-	import { superForm } from 'sveltekit-superforms';
-	import { untrack } from 'svelte';
+	import {
+		connectionSchema,
+		type ConnectionDetails,
+		type ConnectionFormErrors,
+		type ConnectionFormValues
+	} from '$lib/schemas/connection';
+	import { z } from 'zod';
+	import GithubIcon from '../icons/GithubIcon.svelte';
 
-	let { data } = $props();
+	let values = $state<ConnectionFormValues>({
+		serverAddress: 'archipelago.gg',
+		portNum: '38281',
+		password: '',
+		slotName: ''
+	});
+	let errors = $state<ConnectionFormErrors>({});
 
-	const { form, errors, constraints, enhance } = superForm(
-		untrack(() => data.form),
-		{
-			onSubmit: ({ formData }) => connectClientToServer(formData)
+	function onsubmit(event: SubmitEvent) {
+		event.preventDefault();
+
+		const result = connectionSchema.safeParse(values);
+		if (!result.success) {
+			errors = z.flattenError(result.error).fieldErrors;
+			return;
 		}
-	);
 
-	async function connectClientToServer(formData: FormData) {
-		const serverAddress = formData.get('serverAddress')?.toString();
-		const portNum = formData.get('portNum')?.toString();
-		const password = formData.get('password')?.toString() || undefined;
-		const slotName = formData.get('slotName')?.toString() ?? 'Player1';
+		errors = {};
+		connectClientToServer(result.data);
+	}
 
+	async function connectClientToServer({
+		serverAddress,
+		portNum,
+		password,
+		slotName
+	}: ConnectionDetails) {
 		await connectionManager
-			.createConnection(`${serverAddress}:${portNum}`, slotName, password ?? '')
+			.createConnection(`${serverAddress}:${portNum}`, slotName, password)
 			.then(() => console.log('Connected to the Archipelago server!'))
 			.catch(console.error);
 	}
 </script>
 
-{#snippet connectionInput(label: string, id: string, placeholder: string, optional?: boolean)}
+{#snippet connectionInput(
+	label: string,
+	id: keyof ConnectionFormValues,
+	placeholder: string,
+	optional?: boolean
+)}
 	<div class="flex flex-col gap-2">
 		<div class="flex gap-2">
-			<label class="text-secondary-content" for="serverAddress">
+			<label class="text-secondary-content" for={id}>
 				{label}
 				{#if optional}
 					<span class="text-fluid-xs text-secondary-700">(optional)</span>
 				{/if}
 			</label>
-			{#if $errors[id]}
-				<div class="flex gap-1">
-					<CircleX class="text-fluid-xs text-danger"></CircleX>
-					<span>{$errors[id]}</span>
+			{#if errors[id]?.length}
+				<div class="flex items-center text-danger">
+					<CircleX class="h-4 stroke-3"></CircleX>
+					<span id="{id}-error">{errors[id][0]}</span>
 				</div>
 			{/if}
 		</div>
@@ -50,8 +73,9 @@
 			name={id}
 			required={!optional}
 			{placeholder}
-			bind:value={$form[id]}
-			{...$constraints[id]}
+			bind:value={values[id]}
+			aria-invalid={errors[id]?.length ? true : undefined}
+			aria-describedby={errors[id]?.length ? `${id}-error` : undefined}
 		/>
 	</div>
 {/snippet}
@@ -61,10 +85,10 @@
 		<h2 class="text-fluid-2xl">Connect to an Archipelago Server</h2>
 		<div class="panel h-full bg-secondary-500">
 			<div class="h-full w-full rounded-2xl bg-secondary-400">
-				<form class="grid-rows-auto grid gap-16 p-8" method="POST" use:enhance>
+				<form class="grid-rows-auto grid gap-16 p-8" novalidate {onsubmit}>
 					<div class="grid grid-rows-4 gap-8">
 						{@render connectionInput('Server Address', 'serverAddress', 'archipelago.gg')}
-						{@render connectionInput('Port Number', 'portNum', '12345')}
+						{@render connectionInput('Port Number', 'portNum', '38281')}
 						{@render connectionInput('Password', 'password', '[your server password]', true)}
 						{@render connectionInput('Slot Name', 'slotName', '[your slot name]')}
 					</div>
@@ -78,16 +102,7 @@
 							<ListCheck></ListCheck>
 						</Tooltip>
 						<Tooltip anchorName="github-tooltip" label="GitHub" tooltipText="GitHub Repo">
-							<svg
-								class="h-6"
-								xmlns="http://www.w3.org/2000/svg"
-								fill="currentColor"
-								viewBox="0 0 16 16"
-							>
-								<path
-									d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8"
-								/>
-							</svg>
+							<GithubIcon></GithubIcon>
 						</Tooltip>
 					</div>
 				</form>
