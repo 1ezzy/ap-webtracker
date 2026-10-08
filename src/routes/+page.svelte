@@ -3,12 +3,14 @@
 	import ConnectedView from '$lib/components/views/ConnectedView.svelte';
 	import CreateConnectionView from '$lib/components/views/CreateConnectionView.svelte';
 
+	let { data } = $props();
+
 	let connected = $derived(connectionManager.connected);
 	let connecting = $derived(connectionManager.connecting);
 </script>
 
 {#if !connected && !connecting}
-	<CreateConnectionView></CreateConnectionView>
+	<CreateConnectionView {data}></CreateConnectionView>
 {:else if !connected && connecting}
 	<span class="loader my-auto"></span>
 {:else}

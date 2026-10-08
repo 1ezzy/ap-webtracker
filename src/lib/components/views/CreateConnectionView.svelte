@@ -1,15 +1,24 @@
 <script lang="ts">
-	import { ListCheck } from '@lucide/svelte';
+	import { CircleX, ListCheck } from '@lucide/svelte';
 	import { connectionManager } from '$lib/clients/connection-manager.svelte';
 	import Tooltip from '$lib/components/atomics/Tooltip.svelte';
+	import { superForm } from 'sveltekit-superforms';
+	import { untrack } from 'svelte';
 
-	async function connectClientToServer(event: SubmitEvent) {
-		event.preventDefault();
-		const data = new FormData(event.currentTarget as HTMLFormElement);
-		const serverAddress = data.get('serverAddress')?.toString();
-		const portNum = data.get('portNum')?.toString();
-		const password = data.get('password')?.toString() || undefined;
-		const slotName = data.get('slotName')?.toString() ?? 'Player1';
+	let { data } = $props();
+
+	const { form, errors, constraints, enhance } = superForm(
+		untrack(() => data.form),
+		{
+			onSubmit: ({ formData }) => connectClientToServer(formData)
+		}
+	);
+
+	async function connectClientToServer(formData: FormData) {
+		const serverAddress = formData.get('serverAddress')?.toString();
+		const portNum = formData.get('portNum')?.toString();
+		const password = formData.get('password')?.toString() || undefined;
+		const slotName = formData.get('slotName')?.toString() ?? 'Player1';
 
 		await connectionManager
 			.createConnection(`${serverAddress}:${portNum}`, slotName, password ?? '')
@@ -18,10 +27,32 @@
 	}
 </script>
 
-{#snippet connectionInput(label: string, id: string)}
+{#snippet connectionInput(label: string, id: string, placeholder: string, optional?: boolean)}
 	<div class="flex flex-col gap-2">
-		<label class="text-secondary-content" for="serverAddress">{label}</label>
-		<input class="input w-full input-secondary" type="text" {id} name={id} required={true} />
+		<div class="flex gap-2">
+			<label class="text-secondary-content" for="serverAddress">
+				{label}
+				{#if optional}
+					<span class="text-fluid-xs text-secondary-700">(optional)</span>
+				{/if}
+			</label>
+			{#if $errors[id]}
+				<div class="flex gap-1">
+					<CircleX class="text-fluid-xs text-danger"></CircleX>
+					<span>{$errors[id]}</span>
+				</div>
+			{/if}
+		</div>
+		<input
+			{id}
+			class="input w-full input-secondary"
+			type={id === 'password' ? 'password' : 'text'}
+			name={id}
+			required={!optional}
+			{placeholder}
+			bind:value={$form[id]}
+			{...$constraints[id]}
+		/>
 	</div>
 {/snippet}
 
@@ -30,12 +61,12 @@
 		<h2 class="text-fluid-2xl">Connect to an Archipelago Server</h2>
 		<div class="panel h-full bg-secondary-500">
 			<div class="h-full w-full rounded-2xl bg-secondary-400">
-				<form class="grid-rows-auto grid gap-16 p-8" onsubmit={connectClientToServer}>
+				<form class="grid-rows-auto grid gap-16 p-8" method="POST" use:enhance>
 					<div class="grid grid-rows-4 gap-8">
-						{@render connectionInput('Server Address', 'serverAddress')}
-						{@render connectionInput('Port Number', 'portNum')}
-						{@render connectionInput('Password', 'password')}
-						{@render connectionInput('Slot Name', 'slotName')}
+						{@render connectionInput('Server Address', 'serverAddress', 'archipelago.gg')}
+						{@render connectionInput('Port Number', 'portNum', '12345')}
+						{@render connectionInput('Password', 'password', '[your server password]', true)}
+						{@render connectionInput('Slot Name', 'slotName', '[your slot name]')}
 					</div>
 					<div class="grid grid-cols-[1fr_min-content_min-content] gap-4">
 						<button class="button button-md w-full bg-success">Connect to Server</button>
