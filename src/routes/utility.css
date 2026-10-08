@@ -39,6 +39,7 @@
 @utility tooltip {
 	@apply absolute rounded-md border-2 border-white bg-surface-100 p-2 text-center text-fluid-xs;
 	@apply top-1 [position-area:center_bottom];
+	@apply transition transition-discrete duration-150 starting:opacity-0 [hidden]:opacity-0;
 }
 
 @utility loader {

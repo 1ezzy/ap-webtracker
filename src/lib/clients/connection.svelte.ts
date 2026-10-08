@@ -10,6 +10,8 @@ export class Connection {
 	readonly client = new Client();
 	readonly slotName: string;
 
+	messageManager = $derived(this.client.messages);
+
 	connected = $state(false);
 	connecting = $state(false);
 	error = $state<string | null>(null);

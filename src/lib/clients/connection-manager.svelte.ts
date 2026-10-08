@@ -1,4 +1,4 @@
-import type { MessageNode } from 'archipelago.js';
+import type { MessageNode, Player } from 'archipelago.js';
 import { Connection } from './connection.svelte';
 import { SvelteSet } from 'svelte/reactivity';
 
@@ -40,6 +40,17 @@ class ConnectionManager {
 			}
 		}
 		return slots;
+	}
+
+	get connectedPlayers() {
+		const connectedPlayers = new SvelteSet<Player | null>();
+		for (const connection of this.connections) {
+			if (connection.slotId !== null) {
+				connectedPlayers.add(this.players[connection.slotId - 1]);
+			}
+		}
+
+		return connectedPlayers;
 	}
 
 	async createConnection(url: string, slotName: string, password?: string) {

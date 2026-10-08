@@ -5,6 +5,11 @@
 	let { open = $bindable(true) } = $props();
 
 	let messages = $derived(connectionManager.feed);
+	let players = $derived(connectionManager.connectedPlayers);
+
+	const handleMessageInput = (event: Event) => {
+		console.log(event)
+	};
 </script>
 
 <details
@@ -19,19 +24,30 @@
 		<ChevronRight class={['transition duration-300', open ? 'rotate-90' : '']}></ChevronRight>
 	</summary>
 	<div class="flex h-full min-h-0 flex-col gap-2 pt-4 2xl:gap-4">
-		<div class="h-full overflow-y-auto">
-			<div class={['panel h-full border-4 border-white bg-surface-200', 'flex flex-col gap-2']}>
-				{#each messages as message (message.id)}
-					<span>{message.text}</span>
-				{/each}
-			</div>
+		<div class={['panel h-full border-4 border-white bg-surface-200 overflow-y-auto', 'flex flex-col gap-2']}>
+			{#each messages as message (message.id)}
+				<span>{message.text}</span>
+			{/each}
 		</div>
 		<div class="grid grid-rows-[min-content_auto] gap-1 2xl:gap-2">
 			<span class="text-fluid-xs">Command Input</span>
-			<div class="grid grid-cols-[1fr_min-content] items-center gap-2 2xl:gap-4">
-				<input class="input input-surface" />
-				<button class="button button-sm text-success"><Send></Send></button>
-			</div>
+				<div class="grid grid-rows-2 gap-2 2xl:gap-4">
+					<select class="input input-surface" onsubmit={handleMessageInput}>
+						{#each players as player (player?.slot)}
+							<option class="font-open-sans" value={`message-slot-${player?.slot}`}>{player?.name}</option>
+						{/each}
+					</select>
+					<div class="grid grid-cols-[1fr_min-content] items-center gap-1 2xl:gap-2">
+						<input
+							class="input input-surface"
+							placeholder="!hint [slot name] [item name]"
+							onsubmit={handleMessageInput}
+						/>
+						<button class="button button-sm text-success" onclick={handleMessageInput}>
+							<Send></Send>
+						</button>
+					</div>
+				</div>
 		</div>
 	</div>
 </details>
