@@ -5,7 +5,7 @@
 	let { open = $bindable(true) } = $props();
 
 	let messages = $derived(connectionManager.feed);
-	let players = $derived(connectionManager.connectedPlayers);
+	let connectedPlayers = $derived(connectionManager.connectedPlayers);
 
 	let scroller = $state<HTMLDivElement>();
 	let pinned = true;
@@ -43,31 +43,62 @@
 			bind:this={scroller}
 			onscroll={handleScroll}
 			class={[
-				'panel h-full overflow-y-auto border-4 border-white bg-surface-200',
+				'panel h-full overflow-y-auto border-4 border-white bg-surface-300',
 				'flex flex-col gap-2'
 			]}
 		>
-			{#each messages as message (message.id)}
-				<span>{message.text}</span>
+			{#each messages as message, i (message.id)}
+				<div class="">
+					{let sentIndex = $state(message.nodes.findIndex((node) => node.text.includes('sent')))}
+					{let textWhite = $state(i < 2 || message.nodes.length <= 1)}
+					{let senderIndex = 0}
+					{let itemIndex = 2}
+					{let receiverIndex = sentIndex > 0 ? 4 : -1}
+					{let locationIndex = sentIndex > 0 ? 6 : 4}
+
+					{let doesMessageContainConnectedSlot = $derived(
+						connectedPlayers.some(
+							(player) =>
+								message.nodes[senderIndex].text === player?.name ||
+								message.nodes[receiverIndex > 0 ? receiverIndex : 0].text === player?.name
+						)
+					)}
+					{#each message.nodes as node, j (node.text)}
+						<span
+							class:text-white={textWhite}
+							class:text-surface-700={!doesMessageContainConnectedSlot &&
+								(j === senderIndex ||
+									j === locationIndex ||
+									j === itemIndex ||
+									j === receiverIndex)}
+							class:text-primary={j === senderIndex}
+							class:text-secondary-400={j === locationIndex}
+							class:text-accent={j === itemIndex}
+							class:text-tertiary={j === receiverIndex}
+						>
+							{node.text}
+						</span>
+					{/each}
+				</div>
 			{/each}
 		</div>
 		<div class="grid grid-rows-[min-content_auto] gap-1 2xl:gap-2">
 			<span class="text-fluid-xs">Command Input</span>
 			<div class="grid grid-rows-2 gap-2 2xl:gap-4">
 				<select class="input input-surface" onsubmit={handleMessageInput}>
-					{#each players as player (player?.slot)}
-						<option class="font-open-sans" value={`message-slot-${player?.slot}`}
-							>{player?.name}</option
-						>
+					{#each connectedPlayers as player (player?.slot)}
+						<option class="font-open-sans" value={`message-slot-${player?.slot}`}>
+							{player?.name}
+						</option>
 					{/each}
 				</select>
-				<div class="grid grid-cols-[1fr_min-content] items-center gap-1 2xl:gap-2">
+				<div class="grid grid-cols-[auto_min-content] items-center gap-1 2xl:gap-2">
 					<input
 						class="input input-surface"
 						placeholder="!hint [slot name] [item name]"
 						onsubmit={handleMessageInput}
 					/>
-					<button class="button button-sm text-success" onclick={handleMessageInput}>
+					<button class="button button-sm h-full w-full text-success" onclick={handleMessageInput}>
 						<Send></Send>
 					</button>
 				</div>

@@ -65,6 +65,19 @@
 	--color-accent-900: hsl(23 48% 17%);
 	--color-accent: var(--color-accent-500);
 
+	/* tertiary — archipelago yellow, #EEE391 */
+	--color-tertiary-content: hsl(53 70% 12%);
+	--color-tertiary-100: hsl(53 85% 97%);
+	--color-tertiary-200: hsl(53 82% 94%);
+	--color-tertiary-300: hsl(53 79% 90%);
+	--color-tertiary-400: hsl(53 76% 83%);
+	--color-tertiary-500: hsl(53 73% 75%);
+	--color-tertiary-600: hsl(53 65% 60%);
+	--color-tertiary-700: hsl(53 58% 45%);
+	--color-tertiary-800: hsl(53 62% 30%);
+	--color-tertiary-900: hsl(53 58% 17%);
+	--color-tertiary: var(--color-tertiary-500);
+
 	/* surface — #444444 */
 	--color-surface-content: hsl(0 0% 93%);
 	--color-surface-100: hsl(0 0% 27%);

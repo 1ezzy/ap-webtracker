@@ -43,10 +43,10 @@ class ConnectionManager {
 	}
 
 	get connectedPlayers() {
-		const connectedPlayers = new SvelteSet<Player | null>();
+		const connectedPlayers: (Player | null)[] = [];
 		for (const connection of this.connections) {
 			if (connection.slotId !== null) {
-				connectedPlayers.add(this.players[connection.slotId - 1]);
+				connectedPlayers.push(this.players[connection.slotId - 1]);
 			}
 		}
 
