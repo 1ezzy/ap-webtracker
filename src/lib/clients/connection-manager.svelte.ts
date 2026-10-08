@@ -53,6 +53,10 @@ class ConnectionManager {
 		return connectedPlayers;
 	}
 
+	getConnectionBySlot(slot: number) {
+		return this.connections.find((connection) => connection.slotId === slot);
+	}
+
 	async createConnection(url: string, slotName: string, password?: string) {
 		const connection = this.createAdditionalConnection(slotName);
 

@@ -19,7 +19,7 @@
 	});
 	let errors = $state<ConnectionFormErrors>({});
 
-	function onsubmit(event: SubmitEvent) {
+	const onSubmit = (event: SubmitEvent) => {
 		event.preventDefault();
 
 		const result = connectionSchema.safeParse(values);
@@ -30,19 +30,19 @@
 
 		errors = {};
 		connectClientToServer(result.data);
-	}
+	};
 
-	async function connectClientToServer({
+	const connectClientToServer = async ({
 		serverAddress,
 		portNum,
 		password,
 		slotName
-	}: ConnectionDetails) {
+	}: ConnectionDetails) => {
 		await connectionManager
 			.createConnection(`${serverAddress}:${portNum}`, slotName, password)
 			.then(() => console.log('Connected to the Archipelago server!'))
 			.catch(console.error);
-	}
+	};
 </script>
 
 {#snippet connectionInput(
@@ -85,7 +85,7 @@
 		<h2 class="text-fluid-2xl">Connect to an Archipelago Server</h2>
 		<div class="panel h-full bg-secondary-500">
 			<div class="h-full w-full rounded-2xl bg-secondary-400">
-				<form class="grid-rows-auto grid gap-16 p-8" novalidate {onsubmit}>
+				<form class="grid-rows-auto grid gap-16 p-8" novalidate onsubmit={onSubmit}>
 					<div class="grid grid-rows-4 gap-8">
 						{@render connectionInput('Server Address', 'serverAddress', 'archipelago.gg')}
 						{@render connectionInput('Port Number', 'portNum', '38281')}

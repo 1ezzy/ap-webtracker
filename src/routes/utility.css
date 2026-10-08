@@ -3,6 +3,11 @@
 	@apply border-r-2 border-primary-100;
 }
 
+@utility font-times {
+	font-family: 'Times New Roman';
+	font-weight: 600;
+}
+
 @utility panel {
 	@apply h-fit w-full rounded-2xl p-4;
 }
