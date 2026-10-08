@@ -6,7 +6,7 @@
 	import MessagePanel from '$lib/components/MessagePanel.svelte';
 
 	let playerOpen = $state(false);
-	let messageOpen = $state(false);
+	let messageOpen = $state(true);
 
 	let playerRow = $derived(playerOpen ? '1fr' : 'min-content');
 	let messageRow = $derived(messageOpen ? '1fr' : 'min-content');
@@ -21,7 +21,7 @@
 	<section
 		class={[
 			'grid h-full min-h-0 w-full grid-rows-[min-content_1fr] content-start justify-items-center overflow-hidden',
-			'gap-8 2xl:gap-16'
+			'gap-4 2xl:gap-8'
 		]}
 	>
 		<ConnectionsPanel></ConnectionsPanel>

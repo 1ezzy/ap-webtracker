@@ -21,7 +21,7 @@
 		</h2>
 		<ChevronRight class={['transition duration-300', open ? 'rotate-90' : '']}></ChevronRight>
 	</summary>
-	<div class="flex min-h-0 flex-1 flex-col pt-4 duration-300">
+	<div class="flex min-h-0 flex-1 flex-col pt-4">
 		<div class="min-h-0 flex-1 overflow-y-auto text-fluid-xs">
 			<table class="w-full table-fixed rounded-2xl border-2 border-primary-100 bg-surface-200">
 				<thead class="bg-accent text-primary-content">

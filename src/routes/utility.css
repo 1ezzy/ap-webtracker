@@ -25,11 +25,15 @@
 }
 
 @utility input {
-	@apply h-10 px-2;
+	@apply h-10 rounded-lg border-4 px-2;
 }
 
 @utility input-secondary {
-	@apply rounded-lg border-2 border-secondary-700 bg-secondary-100 text-secondary-content;
+	@apply border-secondary-700 bg-secondary-100 text-secondary-content;
+}
+
+@utility input-surface {
+	@apply border-white bg-surface-200 text-white;
 }
 
 @utility tooltip {
