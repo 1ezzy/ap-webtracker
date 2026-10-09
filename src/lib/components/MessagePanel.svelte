@@ -115,7 +115,7 @@
 						placeholder="!hint item name or type a message"
 						bind:value={message}
 					/>
-					<button type="submit" class="button button-sm h-full w-full text-success">
+					<button type="submit" class="button button-sm h-full w-full button-success">
 						<Send></Send>
 					</button>
 				</form>

@@ -1,5 +1,5 @@
 <script lang="ts">
-	let { anchorName, label, tooltipText, children } = $props();
+	let { anchorName, label, tooltipText, children, class: className } = $props();
 
 	let showTooltip = $state(false);
 
@@ -9,7 +9,7 @@
 
 <button
 	type="button"
-	class={['button button-md w-full']}
+	class={['className button button-md w-full', className]}
 	style:anchor-name={anchorNameClass}
 	aria-label={label}
 	onmouseenter={() => (showTooltip = true)}

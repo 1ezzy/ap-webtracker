@@ -40,7 +40,7 @@
 	]}
 >
 	<summary class="flex h-fit w-full items-center justify-between">
-		<h2 class="text-fluid-lg">
+		<h2 class="flex items-center gap-2 text-fluid-lg">
 			Slot Connections
 			<span class="text-fluid-sm">
 				({connections.length} {connections.length === 1 ? 'connection' : 'connections'})</span

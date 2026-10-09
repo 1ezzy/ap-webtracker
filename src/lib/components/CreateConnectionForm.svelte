@@ -97,20 +97,22 @@
 			<button class="button button-md w-full button-success">Connect to Server</button>
 
 			<Tooltip
+				class="icon-button button-md button-surface"
 				anchorName="games-tooltip"
 				label="List of Supported Games"
 				tooltipText="Supported Games"
 			>
 				<a href={resolve('/')}>
-					<button class="button button-md button-surface">
-						<ListCheck></ListCheck>
-					</button>
+					<ListCheck class="h-2/3"></ListCheck>
 				</a>
 			</Tooltip>
-			<Tooltip anchorName="github-tooltip" label="GitHub" tooltipText="GitHub Repo">
-				<button class="button button-md button-surface">
-					<GithubIcon></GithubIcon>
-				</button>
+			<Tooltip
+				class="icon-button button-md button-surface"
+				anchorName="github-tooltip"
+				label="GitHub"
+				tooltipText="GitHub Repo"
+			>
+				<GithubIcon class="h-2/3"></GithubIcon>
 			</Tooltip>
 		</div>
 	{/if}
