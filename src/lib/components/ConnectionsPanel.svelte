@@ -1,17 +1,24 @@
 <script lang="ts">
+	import { modals } from 'svelte-modals';
 	import Plus from '@lucide/svelte/icons/plus';
 	import GlobeX from '@lucide/svelte/icons/globe-x';
 	import ChevronRight from '@lucide/svelte/icons/chevron-right';
 	import { connectionManager } from '$lib/clients/connection-manager.svelte';
 	import type { Connection } from '$lib/clients/connection.svelte';
+	import CreateConnectionModal from '$lib/components/modals/CreateConnectionModal.svelte';
+	import Tooltip from './atomics/Tooltip.svelte';
 
 	let { open = $bindable(true) } = $props();
 
 	let connections = $derived(connectionManager.connections);
 
-	function removeConnection(connection: Connection) {
+	const openAddConnectionModal = () => {
+		modals.open(CreateConnectionModal, { title: 'Add New Connection' });
+	};
+
+	const removeConnection = (connection: Connection) => {
 		connectionManager.removeConnection(connection.id);
-	}
+	};
 </script>
 
 {#snippet connectionEntry(connection: Connection, slotIndex: number)}
@@ -26,9 +33,9 @@
 		<span class="text-fluid-base text-primary-900">
 			{slotIndex} - {connection.slotName}
 			{#if connection.connecting}
-				<span class="text-fluid-xs text-tertiary">(connecting...)</span>
+				<span class="text-fluid-xs text-white">(connecting...)</span>
 			{:else if connection.error}
-				<span class="text-fluid-xs text-danger">(error)</span>
+				<span class="text-fluid-xs text-danger">(error connecting)</span>
 			{/if}
 		</span>
 	</div>
@@ -47,9 +54,19 @@
 			<span class="text-fluid-sm"> ({connections.length})</span>
 		</h2>
 		<div class="flex items-center gap-2">
-			<button class="button icon-button button-sm button-success" aria-label="Add slot connection">
-				<Plus></Plus>
-			</button>
+			<Tooltip
+				anchorName="add-connection-button"
+				tooltipText="Add a New Connection"
+				label="Add a New Connection"
+			>
+				<button
+					class="button icon-button button-sm button-success"
+					aria-label="Add slot connection"
+					onclick={openAddConnectionModal}
+				>
+					<Plus></Plus>
+				</button>
+			</Tooltip>
 			<ChevronRight class={['transition duration-300', open ? 'rotate-90' : '']}></ChevronRight>
 		</div>
 	</summary>

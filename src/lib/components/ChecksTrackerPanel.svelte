@@ -3,6 +3,7 @@
 	import Plus from '@lucide/svelte/icons/plus';
 	import { connectionManager } from '$lib/clients/connection-manager.svelte';
 	import CreateConnectionModal from '$lib/components/modals/CreateConnectionModal.svelte';
+	import { Connection } from '$lib/clients/connection.svelte';
 
 	let connections = $derived(connectionManager.connections);
 
@@ -11,15 +12,26 @@
 	};
 </script>
 
-{#snippet gamePanel(gameName: string | null, gamePlayer: string, gameChecks: number[])}
+{#snippet gamePanel(connection: Connection)}
+	{let gameName = $derived(connection.gameName)}
+	{let slotName = $derived(connection.slotName)}
+	{let [checksFound, checksTotal] = [connection.checksFound, connection.checksTotal]}
+
 	<div class="flex h-full w-64 flex-col gap-4 rounded-lg bg-secondary-500 px-4 py-2">
 		<div class="flex flex-col">
-			<span class="overflow-hidden text-fluid-sm text-nowrap text-ellipsis">{gameName}</span>
-			<span class="text-fluid-xs text-primary-100/80">({gamePlayer})</span>
+			<span class="overflow-hidden text-fluid-sm text-nowrap text-ellipsis">
+				{gameName}
+				{#if connection.connecting}
+					<span class="text-fluid-xs text-white">(connecting...)</span>
+				{:else if connection.error}
+					<span class="text-fluid-xs text-danger">(error connecting)</span>
+				{/if}
+			</span>
+			<span class="text-fluid-xs text-primary-100/80">({slotName})</span>
 		</div>
 		<div class="flex h-fit flex-col items-start justify-end leading-snug">
 			<div class="flex h-fit items-center gap-2">
-				<span class="text-fluid-xl">{gameChecks[0]} / {gameChecks[1]}</span>
+				<span class="text-fluid-xl">{checksFound} / {checksTotal}</span>
 			</div>
 			<span class="text-fluid-xs text-primary-100/80">checks</span>
 		</div>
@@ -49,10 +61,7 @@
 		<div class="flex h-full w-full flex-col gap-4">
 			<div class="flex w-full gap-x-4">
 				{#each connections as connection (connection.id)}
-					{@render gamePanel(connection.gameName, connection.slotName, [
-						connection.checksFound,
-						connection.checksTotal
-					])}
+					{@render gamePanel(connection)}
 				{/each}
 				{@render connectionPanel()}
 			</div>

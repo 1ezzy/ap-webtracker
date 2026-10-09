@@ -116,7 +116,7 @@
 				>
 					<input
 						class="input input-surface"
-						placeholder="!hint item name or type a message"
+						placeholder="!hint [item name] or type a message"
 						bind:value={message}
 					/>
 					<button
