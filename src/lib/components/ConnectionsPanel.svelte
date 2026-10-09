@@ -1,5 +1,7 @@
 <script lang="ts">
-	import { Plus, GlobeX, ChevronRight } from '@lucide/svelte';
+	import Plus from '@lucide/svelte/icons/plus';
+	import GlobeX from '@lucide/svelte/icons/globe-x';
+	import ChevronRight from '@lucide/svelte/icons/chevron-right';
 	import { connectionManager } from '$lib/clients/connection-manager.svelte';
 	import type { Connection } from '$lib/clients/connection.svelte';
 

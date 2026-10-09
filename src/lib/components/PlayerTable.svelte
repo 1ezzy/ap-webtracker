@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { connectionManager } from '$lib/clients/connection-manager.svelte';
-	import { ChevronRight } from '@lucide/svelte';
+	import ChevronRight from '@lucide/svelte/icons/chevron-right';
 
 	let players = $derived(connectionManager.players);
 	let activePlayerSlotIDs = $derived([...connectionManager.connectedSlots]);

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { modals } from 'svelte-modals';
-	import { Plus } from '@lucide/svelte';
+	import Plus from '@lucide/svelte/icons/plus';
 	import { connectionManager } from '$lib/clients/connection-manager.svelte';
 	import CreateConnectionModal from '$lib/components/modals/CreateConnectionModal.svelte';
 

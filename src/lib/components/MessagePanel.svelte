@@ -3,7 +3,8 @@
 	import type { Connection } from '$lib/clients/connection.svelte';
 	import { mapMessageWithColors } from '$lib/messages/color-message';
 	import { parseChatInput } from '$lib/messages/parse-chat-input';
-	import { ChevronRight, Send } from '@lucide/svelte';
+	import ChevronRight from '@lucide/svelte/icons/chevron-right';
+	import Send from '@lucide/svelte/icons/send';
 
 	let { open = $bindable(true) } = $props();
 

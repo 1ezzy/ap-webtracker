@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { CircleX, ListCheck } from '@lucide/svelte';
+	import CircleX from '@lucide/svelte/icons/circle-x';
+	import ListCheck from '@lucide/svelte/icons/list-check';
 	import { connectionManager } from '$lib/clients/connection-manager.svelte';
 	import Tooltip from '$lib/components/atomics/Tooltip.svelte';
 	import {
