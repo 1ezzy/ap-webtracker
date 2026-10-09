@@ -17,9 +17,7 @@
 	<summary class="flex h-fit w-full items-center justify-between" onclick={() => (open = !open)}>
 		<h2 class="flex items-center gap-2 text-fluid-lg">
 			Room Info
-			<span class="text-fluid-sm">
-				({players.length} {players.length === 1 ? 'player' : 'players'})</span
-			>
+			<span class="text-fluid-sm"> ({players.length})</span>
 		</h2>
 		<ChevronRight class={['transition duration-300', open ? 'rotate-90' : '']}></ChevronRight>
 	</summary>

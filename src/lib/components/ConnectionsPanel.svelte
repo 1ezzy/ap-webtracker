@@ -42,9 +42,7 @@
 	<summary class="flex h-fit w-full items-center justify-between">
 		<h2 class="flex items-center gap-2 text-fluid-lg">
 			Slot Connections
-			<span class="text-fluid-sm">
-				({connections.length} {connections.length === 1 ? 'connection' : 'connections'})</span
-			>
+			<span class="text-fluid-sm"> ({connections.length})</span>
 		</h2>
 		<div class="flex items-center gap-2">
 			<button class="button icon-button button-sm button-success" aria-label="Add slot connection">

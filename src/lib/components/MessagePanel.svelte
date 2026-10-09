@@ -100,6 +100,9 @@
 			<span class="text-fluid-xs">Command Input</span>
 			<div class="grid grid-rows-2 gap-2 2xl:gap-4">
 				<select class="input input-surface" bind:value={selectedSlot}>
+					{#if !selectedSlot}
+						<option class="font-open-sans" value={null}> Select a slot </option>
+					{/if}
 					{#each connectedPlayers as player (player?.slot)}
 						<option class="font-open-sans" value={player?.slot}>
 							{player?.name}
