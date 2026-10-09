@@ -96,24 +96,23 @@
 	{#if includeButtons}
 		<div class="grid grid-cols-[1fr_min-content_min-content] gap-4">
 			<button class="button button-md w-full button-success">Connect to Server</button>
-
-			<Tooltip
-				class="icon-button button-md button-surface"
-				anchorName="games-tooltip"
-				label="List of Supported Games"
-				tooltipText="Supported Games"
-			>
-				<a href={resolve('/')}>
-					<ListCheck class="h-2/3"></ListCheck>
-				</a>
-			</Tooltip>
+			<a href={resolve('/')}>
+				<Tooltip
+					class="icon-button button-md button-surface"
+					anchorName="games-tooltip"
+					label="List of Supported Games"
+					tooltipText="Supported Games"
+				>
+					<ListCheck></ListCheck>
+				</Tooltip>
+			</a>
 			<Tooltip
 				class="icon-button button-md button-surface"
 				anchorName="github-tooltip"
 				label="GitHub"
 				tooltipText="GitHub Repo"
 			>
-				<GithubIcon class="h-2/3"></GithubIcon>
+				<GithubIcon></GithubIcon>
 			</Tooltip>
 		</div>
 	{/if}

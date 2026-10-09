@@ -119,7 +119,11 @@
 						placeholder="!hint item name or type a message"
 						bind:value={message}
 					/>
-					<button type="submit" class="button button-sm h-full w-full button-success">
+					<button
+						type="submit"
+						class="button icon-button button-lg button-success"
+						disabled={!selectedSlot}
+					>
 						<Send></Send>
 					</button>
 				</form>

@@ -21,7 +21,7 @@
 			aria-label={`Disconnect ${connection.slotName}`}
 			onclick={() => removeConnection(connection)}
 		>
-			<GlobeX class=" h-2/3 text-primary-100"></GlobeX>
+			<GlobeX class="text-primary-100"></GlobeX>
 		</button>
 		<span class="text-fluid-base text-primary-900">
 			{slotIndex} - {connection.slotName}
@@ -48,7 +48,7 @@
 		</h2>
 		<div class="flex items-center gap-2">
 			<button class="button icon-button button-sm button-success" aria-label="Add slot connection">
-				<Plus class="h-2/3"></Plus>
+				<Plus></Plus>
 			</button>
 			<ChevronRight class={['transition duration-300', open ? 'rotate-90' : '']}></ChevronRight>
 		</div>

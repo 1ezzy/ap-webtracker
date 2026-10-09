@@ -1,0 +1,56 @@
+@utility button {
+	@apply flex items-center justify-center px-2;
+	@apply hover:cursor-pointer;
+}
+
+@utility icon-button {
+	@apply aspect-square px-0;
+}
+
+@utility button-sm {
+	@apply h-4 rounded-md 2xl:h-6;
+
+	:where(&) svg {
+		@apply h-1/2;
+	}
+}
+
+@utility button-md {
+	@apply h-6 rounded-lg 2xl:h-8;
+
+	:where(&) svg {
+		@apply h-2/3;
+	}
+}
+
+@utility button-lg {
+	@apply h-8 rounded-lg 2xl:h-10;
+}
+
+@utility button-primary {
+	@apply bg-primary text-white;
+}
+
+@utility button-secondary {
+	@apply bg-secondary text-white;
+}
+
+@utility button-tertiary {
+	@apply bg-tertiary-600 text-black;
+}
+
+@utility button-accent {
+	@apply bg-accent text-black;
+}
+
+@utility button-surface {
+	@apply bg-surface-100 text-white;
+}
+
+@utility button-success {
+	@apply bg-success text-white;
+}
+
+@utility button-danger {
+	@apply bg-danger text-white;
+}

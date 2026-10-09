@@ -1,7 +1,7 @@
 @import 'tailwindcss';
 @plugin '@tailwindcss/typography';
 
-@import './utility.css';
+@import './styles/utility.css';
 
 @theme {
 	/* text trim utility variables */
@@ -14,7 +14,9 @@
 	--breakpoint-4xl: 160rem;
 	--breakpoint-5xl: 200rem;
 
-	/* utopia fluid type scale — 320px to 2560px viewport, 1.125 min ratio / 1.25 max ratio above base */
+	/* utopia fluid type scale — 320px to 2560px viewport, 
+	*  1.125 min ratio / 1.25 max ratio above base 
+	*/
 	--text-fluid-xs: clamp(0.79rem, 0.776rem + 0.071vw, 0.889rem);
 	--text-fluid-sm: clamp(0.889rem, 0.873rem + 0.079vw, 1rem);
 	--text-fluid-base: clamp(1rem, 0.982rem + 0.089vw, 1.125rem);

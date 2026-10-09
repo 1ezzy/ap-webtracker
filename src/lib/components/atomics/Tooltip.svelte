@@ -1,5 +1,19 @@
 <script lang="ts">
-	let { anchorName, label, tooltipText, children, class: className } = $props();
+	import type { Snippet } from 'svelte';
+
+	let {
+		anchorName,
+		label,
+		tooltipText,
+		children,
+		class: className
+	}: {
+		anchorName: string;
+		label: string;
+		tooltipText: string;
+		children: Snippet;
+		class?: string;
+	} = $props();
 
 	let showTooltip = $state(false);
 

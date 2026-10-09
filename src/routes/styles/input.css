@@ -1,0 +1,11 @@
+@utility input {
+	@apply h-10 rounded-lg border-4 px-2;
+}
+
+@utility input-secondary {
+	@apply border-secondary-600 bg-secondary-100 text-secondary-content;
+}
+
+@utility input-surface {
+	@apply border-white bg-surface-200 text-white;
+}
