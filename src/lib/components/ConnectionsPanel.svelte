@@ -15,7 +15,7 @@
 {#snippet connectionEntry(connection: Connection, slotIndex: number)}
 	<div class="flex flex-row items-center gap-2">
 		<button
-			class="button button-sm bg-danger"
+			class="button icon-button button-sm button-danger"
 			aria-label={`Disconnect ${connection.slotName}`}
 			onclick={() => removeConnection(connection)}
 		>
@@ -47,7 +47,7 @@
 			>
 		</h2>
 		<div class="flex items-center gap-2">
-			<button class="button button-sm bg-success" aria-label="Add slot connection">
+			<button class="button icon-button button-sm button-success" aria-label="Add slot connection">
 				<Plus class="h-2/3"></Plus>
 			</button>
 			<ChevronRight class={['transition duration-300', open ? 'rotate-90' : '']}></ChevronRight>

@@ -13,8 +13,12 @@
 }
 
 @utility button {
-	@apply flex aspect-square items-center justify-center bg-surface-100;
+	@apply flex items-center justify-center px-2;
 	@apply hover:cursor-pointer;
+}
+
+@utility icon-button {
+	@apply aspect-square px-0;
 }
 
 @utility button-sm {
@@ -27,6 +31,18 @@
 
 @utility button-md {
 	@apply h-8 rounded-lg 2xl:h-10;
+}
+
+@utility button-surface {
+	@apply bg-surface-100 text-white;
+}
+
+@utility button-success {
+	@apply bg-success text-white;
+}
+
+@utility button-danger {
+	@apply bg-danger text-white;
 }
 
 @utility input {
