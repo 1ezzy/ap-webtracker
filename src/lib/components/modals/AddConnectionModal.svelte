@@ -38,7 +38,7 @@
 
 {#snippet actions()}
 	<button
-		class="button button-md button-success"
+		class="button button-lg button-success"
 		onclick={async () => {
 			const { slotName } = values;
 			if (!slotName) return;

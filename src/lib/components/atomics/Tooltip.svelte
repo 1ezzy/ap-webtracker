@@ -23,7 +23,7 @@
 
 <button
 	type="button"
-	class={['className button button-md w-full', className]}
+	class={['button button-md', className]}
 	style:anchor-name={anchorNameClass}
 	aria-label={label}
 	onmouseenter={() => (showTooltip = true)}

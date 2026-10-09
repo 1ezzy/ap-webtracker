@@ -53,19 +53,14 @@
 			Slot Connections
 			<span class="text-fluid-sm"> ({connections.length})</span>
 		</h2>
-		<div class="flex items-center gap-2">
+		<div class="flex h-full items-center gap-2">
 			<Tooltip
+				class="icon-button button-sm button-success"
 				anchorName="add-connection-button"
 				tooltipText="Add a New Connection"
 				label="Add a New Connection"
 			>
-				<button
-					class="button icon-button button-sm button-success"
-					aria-label="Add slot connection"
-					onclick={openAddConnectionModal}
-				>
-					<Plus></Plus>
-				</button>
+				<Plus onclick={openAddConnectionModal}></Plus>
 			</Tooltip>
 			<ChevronRight class={['transition duration-300', open ? 'rotate-90' : '']}></ChevronRight>
 		</div>

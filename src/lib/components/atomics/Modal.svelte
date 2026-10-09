@@ -24,7 +24,7 @@
 			<div class="flex flex-col gap-2">
 				<hr />
 				<div class="flex items-center justify-end gap-2 py-4">
-					<button class="button button-md w-fit button-danger px-2" onclick={() => close()}
+					<button class="button button-lg w-fit button-danger px-2" onclick={() => close()}
 						>Close</button
 					>
 					{@render actions()}
