@@ -38,6 +38,7 @@
 	},
 	"dependencies": {
 		"@lucide/svelte": "^1.28.0",
-		"archipelago.js": "^2.1.0"
+		"archipelago.js": "^2.1.0",
+		"svelte-modals": "^2.0.1"
 	}
 }

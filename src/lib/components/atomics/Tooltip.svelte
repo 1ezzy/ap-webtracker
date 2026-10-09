@@ -8,6 +8,7 @@
 </script>
 
 <button
+	type="button"
 	class={['button button-md w-full']}
 	style:anchor-name={anchorNameClass}
 	aria-label={label}

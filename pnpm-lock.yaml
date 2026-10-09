@@ -14,6 +14,9 @@ importers:
       archipelago.js:
         specifier: ^2.1.0
         version: 2.1.0
+      svelte-modals:
+        specifier: ^2.0.1
+        version: 2.0.1(svelte@5.56.8(@typescript-eslint/types@8.65.0))
     devDependencies:
       '@eslint/js':
         specifier: ^10.0.1
@@ -1389,6 +1392,11 @@ packages:
       svelte:
         optional: true
 
+  svelte-modals@2.0.1:
+    resolution: {integrity: sha512-4nGWxveM0eILQnkjmlA7nComRSsCW5QssY9d1qNklZaNlnwnziW5xYqLN3ufjyA0/Cn9oMO4i9+8s8zmlw4IiQ==}
+    peerDependencies:
+      svelte: '>=5'
+
   svelte@5.56.8:
     resolution: {integrity: sha512-PY8LOw7xP6c8IOiVqdo0sbbZVYhXRSfklOQLAUyGBKqjTX0wx/z4l/9J+PmBpmlLnxzEb1NqltxQ5/wZme/Cmg==}
     engines: {node: '>=18'}
@@ -2600,6 +2608,10 @@ snapshots:
       postcss-selector-parser: 7.1.4
       semver: 7.8.5
     optionalDependencies:
+      svelte: 5.56.8(@typescript-eslint/types@8.65.0)
+
+  svelte-modals@2.0.1(svelte@5.56.8(@typescript-eslint/types@8.65.0)):
+    dependencies:
       svelte: 5.56.8(@typescript-eslint/types@8.65.0)
 
   svelte@5.56.8(@typescript-eslint/types@8.65.0):

@@ -17,11 +17,13 @@
 	<summary class="flex h-fit w-full items-center justify-between" onclick={() => (open = !open)}>
 		<h2 class="flex items-center gap-2 text-fluid-lg">
 			Room Info
-			<span class="text-fluid-sm"> ({players.length} players)</span>
+			<span class="text-fluid-sm">
+				({players.length} {players.length === 1 ? 'player' : 'players'})</span
+			>
 		</h2>
 		<ChevronRight class={['transition duration-300', open ? 'rotate-90' : '']}></ChevronRight>
 	</summary>
-	<div class="flex min-h-0 flex-1 flex-col pt-4">
+	<div class="mt-4 flex min-h-0 flex-1 flex-col">
 		<div class="min-h-0 flex-1 overflow-y-auto text-fluid-xs">
 			<table class="w-full table-fixed rounded-2xl border-2 border-primary-100 bg-surface-200">
 				<thead class="bg-accent text-primary-content">
