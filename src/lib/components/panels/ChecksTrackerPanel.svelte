@@ -15,7 +15,7 @@
 {#snippet gamePanel(connection: Connection)}
 	{let gameName = $derived(connection.gameName)}
 	{let slotName = $derived(connection.slotName)}
-	{let [checksFound, checksTotal] = [connection.checksFound, connection.checksTotal]}
+	{let [checksFound, checksTotal] = $derived([connection.checksFound, connection.checksTotal])}
 
 	<div class="flex h-full w-64 flex-col gap-4 rounded-lg bg-secondary-500 px-4 py-2">
 		<div class="flex flex-col">
