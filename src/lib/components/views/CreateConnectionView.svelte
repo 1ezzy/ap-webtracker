@@ -1,5 +1,12 @@
 <script lang="ts">
-	import CreateConnectionPanel from '$lib/components/CreateConnectionForm.svelte';
+	import CreateConnectionForm from '$lib/components/forms/CreateConnectionForm.svelte';
+
+	let values = $state({
+		hostName: 'archipelago.gg',
+		portNum: '38281',
+		password: null,
+		slotName: null
+	});
 </script>
 
 <div class="flex h-full w-full items-center justify-center">
@@ -7,7 +14,7 @@
 		<h2 class="text-center text-fluid-2xl">Connect to an Archipelago Server</h2>
 		<div class="panel h-full bg-secondary-500">
 			<div class="h-full w-full rounded-2xl bg-secondary-400">
-				<CreateConnectionPanel></CreateConnectionPanel>
+				<CreateConnectionForm bind:values></CreateConnectionForm>
 			</div>
 		</div>
 	</section>

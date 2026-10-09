@@ -20,6 +20,9 @@ class ConnectionManager {
 	private recentMessages = new Set<string>();
 	private nextMessageId = 0;
 
+	protected hostName: string | null = null;
+	protected portNum: string | null = null;
+
 	get connecting() {
 		return this.connections.some((connection) => connection.connecting);
 	}
@@ -69,6 +72,9 @@ class ConnectionManager {
 
 		this.serverUrl = url;
 		this.password = password;
+
+		this.setHostNameAndPort();
+
 		return connection;
 	}
 
@@ -94,6 +100,24 @@ class ConnectionManager {
 		connection?.disconnect();
 
 		this.connections = this.connections.filter((c) => c.id !== id);
+	}
+
+	getConnectionFormInfo() {
+		return { hostName: this.hostName, portNum: this.portNum };
+	}
+
+	private setHostNameAndPort() {
+		if (!this.serverUrl) {
+			this.hostName = null;
+			this.portNum = null;
+			return;
+		}
+
+		const hasProtocol = /^[a-z]+:\/\//i.test(this.serverUrl);
+		const url = new URL(hasProtocol ? this.serverUrl : `wss://${this.serverUrl}`);
+
+		this.hostName = url.hostname;
+		this.portNum = url.port;
 	}
 
 	private createAdditionalConnection(slotName: string) {

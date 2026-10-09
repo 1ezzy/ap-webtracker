@@ -5,15 +5,15 @@
 	import ChevronRight from '@lucide/svelte/icons/chevron-right';
 	import { connectionManager } from '$lib/clients/connection-manager.svelte';
 	import type { Connection } from '$lib/clients/connection.svelte';
-	import CreateConnectionModal from '$lib/components/modals/CreateConnectionModal.svelte';
-	import Tooltip from './atomics/Tooltip.svelte';
+	import AddConnectionModal from '$lib/components/modals/AddConnectionModal.svelte';
+	import Tooltip from '$lib/components/atomics/Tooltip.svelte';
 
 	let { open = $bindable(true) } = $props();
 
 	let connections = $derived(connectionManager.connections);
 
 	const openAddConnectionModal = () => {
-		modals.open(CreateConnectionModal, { title: 'Add New Connection' });
+		modals.open(AddConnectionModal, { title: 'Add New Connection' });
 	};
 
 	const removeConnection = (connection: Connection) => {

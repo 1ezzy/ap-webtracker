@@ -12,7 +12,7 @@
 		]}
 	>
 		<div
-			class="pointer-events-auto flex min-w-1/2 flex-col gap-8 rounded-lg border-2 border-white bg-surface-300 p-8"
+			class="pointer-events-auto flex min-w-2/5 flex-col gap-8 rounded-lg border-2 border-white bg-surface-300 p-8"
 		>
 			<div class="flex flex-col gap-2">
 				<h2 class="text-2xl">{title}</h2>

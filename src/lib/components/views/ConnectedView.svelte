@@ -1,9 +1,9 @@
 <script lang="ts">
-	import ConnectionsPanel from '$lib/components/ConnectionsPanel.svelte';
-	import ChecksTrackerPanel from '$lib/components/ChecksTrackerPanel.svelte';
+	import ConnectionsPanel from '$lib/components/panels/ConnectionsPanel.svelte';
+	import ChecksTrackerPanel from '$lib/components/panels/ChecksTrackerPanel.svelte';
 	import PlayerTable from '$lib/components/PlayerTable.svelte';
-	import GameTrackerPanel from '$lib/components/GameTrackerPanel.svelte';
-	import MessagePanel from '$lib/components/MessagePanel.svelte';
+	import GameTrackerPanel from '$lib/components/panels/GameTrackerPanel.svelte';
+	import MessagePanel from '$lib/components/panels/MessagePanel.svelte';
 
 	let connectionsOpen = $state(false);
 	let playerOpen = $state(false);

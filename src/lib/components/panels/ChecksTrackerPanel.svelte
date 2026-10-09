@@ -2,13 +2,13 @@
 	import { modals } from 'svelte-modals';
 	import Plus from '@lucide/svelte/icons/plus';
 	import { connectionManager } from '$lib/clients/connection-manager.svelte';
-	import CreateConnectionModal from '$lib/components/modals/CreateConnectionModal.svelte';
+	import AddConnectionModal from '$lib/components/modals/AddConnectionModal.svelte';
 	import { Connection } from '$lib/clients/connection.svelte';
 
 	let connections = $derived(connectionManager.connections);
 
 	const openAddConnectionModal = () => {
-		modals.open(CreateConnectionModal, { title: 'Add New Connection' });
+		modals.open(AddConnectionModal, { title: 'Add New Connection' });
 	};
 </script>
 

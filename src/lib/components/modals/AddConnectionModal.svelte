@@ -1,24 +1,22 @@
 <script lang="ts">
 	import { connectionManager } from '$lib/clients/connection-manager.svelte';
 	import Modal from '$lib/components/atomics/Modal.svelte';
-	import CreateConnectionForm from '$lib/components/CreateConnectionForm.svelte';
+	import AddConnectionForm from '$lib/components/forms/AddConnectionForm.svelte';
 	import type { ConnectionFormValues } from '$lib/schemas/connection';
 
 	const { isOpen, close } = $props();
 
+	const { hostName, portNum } = connectionManager.getConnectionFormInfo();
+	let values = $state<ConnectionFormValues>({
+		hostName,
+		portNum,
+		password: null,
+		slotName: null
+	});
+
 	let connecting = $state(false);
 
 	const title = 'Add New Connection';
-	const contentProps = {
-		includeButtons: false
-	};
-
-	let values = $state<ConnectionFormValues>({
-		serverAddress: 'archipelago.gg',
-		portNum: '38281',
-		password: '',
-		slotName: ''
-	});
 </script>
 
 {#snippet body()}
@@ -32,7 +30,7 @@
 	{:else}
 		<div class="panel h-full bg-secondary-500">
 			<div class="h-full w-full rounded-2xl bg-secondary-400">
-				<CreateConnectionForm {...contentProps} bind:values></CreateConnectionForm>
+				<AddConnectionForm bind:values></AddConnectionForm>
 			</div>
 		</div>
 	{/if}
@@ -42,8 +40,11 @@
 	<button
 		class="button button-md button-success"
 		onclick={async () => {
+			const { slotName } = values;
+			if (!slotName) return;
+
 			connecting = true;
-			await connectionManager.addConnection(values.slotName).then((result) => {
+			await connectionManager.addConnection(slotName).then((result) => {
 				connecting = false;
 
 				if (result.connected) {

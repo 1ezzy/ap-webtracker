@@ -4,6 +4,10 @@
 
 @utility input-secondary {
 	@apply border-secondary-600 bg-secondary-100 text-secondary-content;
+
+	&:disabled {
+		@apply cursor-not-allowed;
+	}
 }
 
 @utility input-surface {

@@ -1,26 +1,24 @@
 <script lang="ts">
+	import type { Snippet } from 'svelte';
 	import CircleX from '@lucide/svelte/icons/circle-x';
-	import ListCheck from '@lucide/svelte/icons/list-check';
 	import { connectionManager } from '$lib/clients/connection-manager.svelte';
-	import Tooltip from '$lib/components/atomics/Tooltip.svelte';
 	import {
 		connectionSchema,
+		emptyConnectionValues,
 		type ConnectionDetails,
 		type ConnectionFormErrors,
 		type ConnectionFormValues
 	} from '$lib/schemas/connection';
 	import { z } from 'zod';
-	import GithubIcon from '$lib/components/icons/GithubIcon.svelte';
-	import { resolve } from '$app/paths';
 
 	let {
-		values = $bindable<ConnectionFormValues>({
-			serverAddress: 'archipelago.gg',
-			portNum: '38281',
-			password: '',
-			slotName: ''
-		}),
-		includeButtons = true
+		values = $bindable(emptyConnectionValues()),
+		disabledInputs,
+		buttons
+	}: {
+		values?: ConnectionFormValues;
+		disabledInputs?: Partial<Record<keyof ConnectionFormValues, boolean>>;
+		buttons?: Snippet;
 	} = $props();
 
 	let errors = $state<ConnectionFormErrors>({});
@@ -39,13 +37,13 @@
 	};
 
 	const connectClientToServer = async ({
-		serverAddress,
+		hostName,
 		portNum,
 		password,
 		slotName
 	}: ConnectionDetails) => {
 		await connectionManager
-			.createConnection(`${serverAddress}:${portNum}`, slotName, password)
+			.createConnection(`${hostName}:${portNum}`, slotName, password)
 			.then(() => console.log('Connected to the Archipelago server!'))
 			.catch(console.error);
 	};
@@ -82,38 +80,19 @@
 			bind:value={values[id]}
 			aria-invalid={errors[id]?.length ? true : undefined}
 			aria-describedby={errors[id]?.length ? `${id}-error` : undefined}
+			disabled={disabledInputs?.[id]}
 		/>
 	</div>
 {/snippet}
 
 <form class="grid-rows-auto grid gap-16 p-8" novalidate onsubmit={onSubmit}>
 	<div class="grid grid-rows-4 gap-8">
-		{@render connectionInput('Server Address', 'serverAddress', 'archipelago.gg')}
+		{@render connectionInput('Host Name', 'hostName', 'archipelago.gg')}
 		{@render connectionInput('Port Number', 'portNum', '38281')}
 		{@render connectionInput('Password', 'password', '[your server password]', true)}
 		{@render connectionInput('Slot Name', 'slotName', '[your slot name]')}
 	</div>
-	{#if includeButtons}
-		<div class="grid grid-cols-[1fr_min-content_min-content] gap-4">
-			<button class="button button-md w-full button-success">Connect to Server</button>
-			<a href={resolve('/')}>
-				<Tooltip
-					class="icon-button button-md button-surface"
-					anchorName="games-tooltip"
-					label="List of Supported Games"
-					tooltipText="Supported Games"
-				>
-					<ListCheck></ListCheck>
-				</Tooltip>
-			</a>
-			<Tooltip
-				class="icon-button button-md button-surface"
-				anchorName="github-tooltip"
-				label="GitHub"
-				tooltipText="GitHub Repo"
-			>
-				<GithubIcon></GithubIcon>
-			</Tooltip>
-		</div>
+	{#if buttons}
+		{@render buttons()}
 	{/if}
 </form>
