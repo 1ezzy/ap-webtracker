@@ -1,5 +1,5 @@
 import { Client } from 'archipelago.js';
-import type { ConnectedPacket, MessageNode, Player, RoomUpdatePacket } from 'archipelago.js';
+import type { ConnectedPacket, Hint, MessageNode, Player, RoomUpdatePacket } from 'archipelago.js';
 
 let nextConnectionId = 0;
 
@@ -10,7 +10,10 @@ export class Connection {
 	readonly client = new Client();
 	readonly slotName: string;
 
+	socketManager = $derived(this.client.socket);
 	messageManager = $derived(this.client.messages);
+	roomStateManager = $derived(this.client.room);
+	itemStateManager = $derived(this.client.items);
 
 	connected = $state(false);
 	connecting = $state(false);
@@ -18,33 +21,46 @@ export class Connection {
 	players = $state<(Player | null)[]>([]);
 
 	gameName = $state<string | null>(null);
-	checksFound = $state<number>(0);
 	checksTotal = $state<number>(0);
+	checksCompleted = $state<number>(0);
+
+	hints = $derived<Hint[]>([]);
+	hintCost = $derived<number>(this.roomStateManager.hintCost);
+	hintPoints = $derived<number>(this.roomStateManager.hintPoints);
 
 	constructor(slotName: string, onMessage: MessageListener) {
 		this.slotName = slotName;
 
-		this.client.socket.on('connected', (packet) => {
+		// messages received by the socker manager
+		this.socketManager.on('connected', (packet) => {
 			this.connected = true;
 			this.players = this.getPlayersFromPacket(packet);
 
 			console.log(packet);
 
 			this.gameName = this.players[packet.slot - 1]?.game ?? null;
-			this.checksFound = packet.checked_locations.length;
+			this.checksCompleted = packet.checked_locations.length;
 			this.checksTotal = packet.missing_locations.length + packet.checked_locations.length;
 		});
-
-		this.client.socket.on('roomUpdate', (packet) => {
+		this.socketManager.on('roomUpdate', (packet) => {
 			this.players = this.getPlayersFromPacket(packet);
 		});
-
-		this.client.socket.on('disconnected', () => {
+		this.socketManager.on('disconnected', () => {
 			this.connected = false;
 			this.players = [];
 		});
 
-		this.client.messages.on('message', (text, nodes) => onMessage(this, text, nodes));
+		// messages received by the message manager
+		this.messageManager.on('message', (text, nodes) => onMessage(this, text, nodes));
+
+		// messages received by the room manager
+		this.roomStateManager.on('locationsChecked', () => {
+			this.checksCompleted = this.roomStateManager.checkedLocations.length;
+		});
+
+		// messages received by the item state manager
+		this.itemStateManager.on('hintsInitialized', (hints) => (this.hints = hints));
+		this.itemStateManager.on('hintReceived', (hint) => this.hints.push(hint));
 	}
 
 	async connect(url: string, password?: string) {

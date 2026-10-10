@@ -15,7 +15,8 @@
 {#snippet gamePanel(connection: Connection)}
 	{let gameName = $derived(connection.gameName)}
 	{let slotName = $derived(connection.slotName)}
-	{let [checksFound, checksTotal] = $derived([connection.checksFound, connection.checksTotal])}
+	{let checksCompleted = $derived(connection.checksCompleted)}
+	{let checksTotal = $derived(connection.checksTotal)}
 
 	<div class="flex h-full w-64 min-w-64 flex-col gap-4 rounded-lg bg-secondary-500 px-4 py-2">
 		<div class="flex flex-col">
@@ -31,7 +32,7 @@
 		</div>
 		<div class="flex h-fit flex-col items-start justify-end leading-snug">
 			<div class="flex h-fit items-center gap-2">
-				<span class="text-fluid-xl">{checksFound} / {checksTotal}</span>
+				<span class="text-fluid-xl">{checksCompleted} / {checksTotal}</span>
 			</div>
 			<span class="text-fluid-xs text-primary-100/80">checks</span>
 		</div>
