@@ -22,7 +22,7 @@ export class Connection {
 
 	gameName = $state<string | null>(null);
 	checksTotal = $state<number>(0);
-	checksCompleted = $state<number>(0);
+	checksObtained = $state<number>(0);
 
 	hints = $derived<Hint[]>([]);
 	hintCost = $derived<number>(this.roomStateManager.hintCost);
@@ -39,7 +39,7 @@ export class Connection {
 			console.log(packet);
 
 			this.gameName = this.players[packet.slot - 1]?.game ?? null;
-			this.checksCompleted = packet.checked_locations.length;
+			this.checksObtained = packet.checked_locations.length;
 			this.checksTotal = packet.missing_locations.length + packet.checked_locations.length;
 		});
 		this.socketManager.on('roomUpdate', (packet) => {
@@ -55,7 +55,7 @@ export class Connection {
 
 		// messages received by the room manager
 		this.roomStateManager.on('locationsChecked', () => {
-			this.checksCompleted = this.roomStateManager.checkedLocations.length;
+			this.checksObtained = this.roomStateManager.checkedLocations.length;
 		});
 
 		// messages received by the item state manager
