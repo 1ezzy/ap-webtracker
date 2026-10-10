@@ -1,7 +1,7 @@
 <script lang="ts">
 	import ConnectionsPanel from '$lib/components/panels/ConnectionsPanel.svelte';
 	import ChecksTrackerPanel from '$lib/components/panels/ChecksTrackerPanel.svelte';
-	import PlayerTable from '$lib/components/PlayerTable.svelte';
+	import PlayerTable from '$lib/components/tables/PlayerTable.svelte';
 	import GameTrackerPanel from '$lib/components/panels/GameTrackerPanel.svelte';
 	import MessagePanel from '$lib/components/panels/MessagePanel.svelte';
 
@@ -32,7 +32,7 @@
 	</section>
 	<section
 		class={[
-			'grid h-full grid-rows-[min-content_1fr] items-center justify-items-center',
+			'grid h-full min-h-0 grid-rows-[min-content_1fr] items-center justify-items-center overflow-hidden',
 			'gap-y-8 2xl:gap-y-16'
 		]}
 	>

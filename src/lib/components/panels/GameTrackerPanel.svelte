@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { connectionManager } from '$lib/clients/connection-manager.svelte';
 	import Badge from '$lib/components/atomics/Badge.svelte';
+	import HintTrackerTable from '$lib/components/tables/HintTrackerTable.svelte';
+	import ItemTrackerTable from '../tables/ItemTrackerTable.svelte';
 
 	let games = $derived(
 		connectionManager.connectedPlayers
@@ -35,7 +37,7 @@
 {/snippet}
 
 {#snippet tabsContent()}
-	<div class="grid h-full w-full grid-rows-[min-content_auto] gap-4 2xl:gap-8">
+	<div class="grid h-full min-h-0 w-full grid-rows-[min-content_minmax(0,1fr)] gap-4 2xl:gap-8">
 		<div class="flex w-full items-center gap-4 2xl:gap-8">
 			<h3 class="min-w-fit text-fluid-base">Select View</h3>
 			<span class="text-fluid-base">|</span>
@@ -56,7 +58,7 @@
 				{/each}
 			</div>
 		</div>
-		<div class="grid grid-rows-[min-content_min-content_auto] gap-4">
+		<div class="grid min-h-0 grid-rows-[min-content_minmax(0,1fr)] gap-4">
 			<div class="text-fluid-4xl">
 				<h2>{subviewModel.subviews[subviewModel.selectedSubviewIndex]} Tracker</h2>
 			</div>
@@ -70,31 +72,40 @@
 {/snippet}
 
 {#snippet hintsSubview()}
-	<div class="flex flex-row items-center gap-2 2xl:gap-4">
-		<Badge label="Hint Points" value={`${activeConnection.hintPoints}pts`} color="primary"></Badge>
-		<Badge label="Next Hint Cost" value={`${activeConnection.hintCost}pts`} color="primary"></Badge>
+	<div class="grid min-h-0 grid-rows-[min-content_minmax(0,1fr)] gap-2 overflow-hidden 2xl:gap-4">
+		<div class="flex flex-row items-center gap-2 2xl:gap-4">
+			<Badge label="Hint Points" value={`${activeConnection.hintPoints}pts`} color="primary"
+			></Badge>
+			<Badge label="Next Hint Cost" value={`${activeConnection.hintCost}pts`} color="primary"
+			></Badge>
+		</div>
+		<HintTrackerTable hints={activeConnection.hints} activeSlotName={activeConnection.slotName}
+		></HintTrackerTable>
 	</div>
 {/snippet}
 
 {#snippet itemsSubview()}
-	<div class="flex flex-row items-center gap-2 2xl:gap-4">
-		<Badge label="Checks Obtained" value={`${activeConnection.checksObtained}`} color="primary"
-		></Badge>
-		<Badge
-			label="Checks Remaining"
-			value={`${activeConnection.checksTotal - activeConnection.checksObtained}`}
-			color="primary"
-		></Badge>
+	<div class="grid min-h-0 grid-rows-[min-content_minmax(0,1fr)] gap-2 overflow-hidden 2xl:gap-4">
+		<div class="flex flex-row items-center gap-2 2xl:gap-4">
+			<Badge label="Checks Obtained" value={`${activeConnection.checksObtained}`} color="primary"
+			></Badge>
+			<Badge
+				label="Checks Remaining"
+				value={`${activeConnection.checksTotal - activeConnection.checksObtained}`}
+				color="primary"
+			></Badge>
+		</div>
+		<ItemTrackerTable></ItemTrackerTable>
 	</div>
 {/snippet}
 
-<div class="flex h-full w-full flex-col">
+<div class="flex h-full w-full flex-col overflow-hidden">
 	<div class="flex flex-row items-center gap-4 2xl:gap-8">
 		<h2 class="flex items-center gap-2 pb-4 text-fluid-lg">Game Tracker</h2>
 		{@render tabs(games)}
 	</div>
 
-	<div class="panel h-full border-4 border-primary p-8">
+	<div class="panel min-h-0 flex-1 overflow-hidden border-4 border-primary p-8">
 		{@render tabsContent()}
 	</div>
 </div>

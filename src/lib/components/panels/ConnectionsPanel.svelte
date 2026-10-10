@@ -28,7 +28,7 @@
 			aria-label={`Disconnect ${connection.slotName}`}
 			onclick={() => removeConnection(connection)}
 		>
-			<GlobeX class="text-primary-100"></GlobeX>
+			<GlobeX class="text-white"></GlobeX>
 		</button>
 		<span class="text-fluid-base text-primary-900">
 			{slotIndex} - {connection.slotName}

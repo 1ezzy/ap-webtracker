@@ -23,7 +23,7 @@
 	</summary>
 	<div class="mt-4 flex min-h-0 flex-1 flex-col">
 		<div class="min-h-0 flex-1 overflow-y-auto text-fluid-xs">
-			<table class="w-full table-fixed rounded-2xl border-2 border-primary-100 bg-surface-200">
+			<table class="w-full table-fixed rounded-2xl border-2 border-white bg-surface-200">
 				<thead class="bg-accent text-primary-content">
 					<tr class="h-12">
 						<th class="table-cell w-1/2">Player</th>
@@ -33,7 +33,7 @@
 				<tbody>
 					{#each players as player, index (player?.name)}
 						<tr
-							class="h-8 border-t-2 border-primary-100"
+							class="h-8 border-t-2 border-white"
 							class:text-success={activePlayerSlotIDs.includes(index + 1)}
 						>
 							<td class="table-cell">{player?.name}</td>

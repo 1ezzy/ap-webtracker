@@ -28,13 +28,13 @@
 					<span class="text-fluid-xs text-danger">(error connecting)</span>
 				{/if}
 			</span>
-			<span class="text-fluid-xs text-primary-100/80">({slotName})</span>
+			<span class="text-fluid-xs text-white/80">({slotName})</span>
 		</div>
 		<div class="flex h-fit flex-col items-start justify-end leading-snug">
 			<div class="flex h-fit items-center gap-2">
 				<span class="text-fluid-xl">{checksObtained} / {checksTotal}</span>
 			</div>
-			<span class="text-fluid-xs text-primary-100/80">checks</span>
+			<span class="text-fluid-xs text-white/80">checks</span>
 		</div>
 	</div>
 {/snippet}
