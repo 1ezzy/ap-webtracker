@@ -3,7 +3,7 @@
 
 	let values = $state({
 		hostName: 'archipelago.gg',
-		portNum: '38281',
+		portNum: null,
 		password: null,
 		slotName: null
 	});

@@ -10,6 +10,7 @@ export type FeedMessage = {
 };
 
 const RECENT_MESSAGE_LIMIT = 200;
+const DEDUPE_WINDOW_MS = 500;
 
 class ConnectionManager {
 	connections = $state<Connection[]>([]);
@@ -17,7 +18,7 @@ class ConnectionManager {
 
 	private serverUrl: string | null = null;
 	private password: string | undefined;
-	private recentMessages = new Set<string>();
+	private recentMessages = new Map<string, number>();
 	private nextMessageId = 0;
 
 	protected hostName: string | null = null;
@@ -129,16 +130,29 @@ class ConnectionManager {
 	}
 
 	private ingestMessage(text: string, nodes: MessageNode[]) {
+		const now = performance.now();
+		this.dedupeRecentMessages(now);
+
 		if (this.recentMessages.has(text)) {
 			return;
 		}
-		this.recentMessages.add(text);
+		this.recentMessages.set(text, now);
 
 		if (this.recentMessages.size > RECENT_MESSAGE_LIMIT) {
-			this.recentMessages.delete(this.recentMessages.values().next().value!);
+			this.recentMessages.delete(this.recentMessages.keys().next().value ?? '');
 		}
 
 		this.feed.push({ id: `message-${this.nextMessageId++}`, text, nodes, receivedAt: Date.now() });
+	}
+
+	private dedupeRecentMessages(timeNow: number) {
+		for (const [text, seenAt] of this.recentMessages) {
+			if (timeNow - seenAt < DEDUPE_WINDOW_MS) {
+				break;
+			}
+
+			this.recentMessages.delete(text);
+		}
 	}
 }
 

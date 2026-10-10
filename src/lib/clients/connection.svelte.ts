@@ -28,6 +28,8 @@ export class Connection {
 			this.connected = true;
 			this.players = this.getPlayersFromPacket(packet);
 
+			console.log(packet);
+
 			this.gameName = this.players[packet.slot - 1]?.game ?? null;
 			this.checksFound = packet.checked_locations.length;
 			this.checksTotal = packet.missing_locations.length + packet.checked_locations.length;
