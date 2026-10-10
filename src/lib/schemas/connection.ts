@@ -35,5 +35,6 @@ export const emptyConnectionValues = (): ConnectionFormValues => ({
 	password: null,
 	slotName: null
 });
+
 export type ConnectionDetails = z.output<typeof connectionSchema>;
 export type ConnectionFormErrors = Partial<Record<keyof ConnectionFormValues, string[]>>;

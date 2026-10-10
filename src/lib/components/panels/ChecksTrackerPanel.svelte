@@ -17,7 +17,7 @@
 	{let slotName = $derived(connection.slotName)}
 	{let [checksFound, checksTotal] = $derived([connection.checksFound, connection.checksTotal])}
 
-	<div class="flex h-full w-64 flex-col gap-4 rounded-lg bg-secondary-500 px-4 py-2">
+	<div class="flex h-full w-64 min-w-64 flex-col gap-4 rounded-lg bg-secondary-500 px-4 py-2">
 		<div class="flex flex-col">
 			<span class="overflow-hidden text-fluid-sm text-nowrap text-ellipsis">
 				{gameName}
@@ -42,7 +42,7 @@
 	<!-- svelte-ignore a11y_click_events_have_key_events -->
 	<div
 		class={[
-			'grid h-full w-64 grid-rows-2 justify-items-center gap-2',
+			'grid h-full w-64 min-w-64 grid-rows-2 justify-items-center gap-2',
 			'rounded-lg border-2 border-dashed border-secondary-500 px-4 py-2',
 			'transition-[background-color] duration-150 hover:bg-secondary-500/50'
 		]}
@@ -57,7 +57,7 @@
 
 <div class="flex h-full w-full flex-col gap-4 overflow-y-hidden">
 	<h2 class="flex items-center gap-2 text-fluid-lg">Checks Tracker</h2>
-	<div class="panel bg-secondary-400">
+	<div class="panel overflow-x-scroll bg-secondary-400">
 		<div class="flex h-full w-full flex-col gap-4">
 			<div class="flex w-full gap-x-4">
 				{#each connections as connection (connection.id)}
