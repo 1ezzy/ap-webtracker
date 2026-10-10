@@ -89,7 +89,7 @@
 		>
 			{#each messages as message (message.id)}
 				<div class="">
-					{#each mapMessageWithColors(message.nodes) as coloredNode (coloredNode.node.text)}
+					{#each mapMessageWithColors(message.nodes) as coloredNode, i (i)}
 						<span class={['font-times', coloredNode.color]}>
 							{coloredNode.node.text}
 						</span>
