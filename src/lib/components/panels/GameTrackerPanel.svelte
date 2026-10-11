@@ -2,7 +2,7 @@
 	import { connectionManager } from '$lib/clients/connection-manager.svelte';
 	import Badge from '$lib/components/atomics/Badge.svelte';
 	import HintTrackerTable from '$lib/components/tables/HintTrackerTable.svelte';
-	import ItemTrackerTable from '../tables/ItemTrackerTable.svelte';
+	import ItemTrackerTable from '$lib/components/tables/ItemTrackerTable.svelte';
 
 	let games = $derived(
 		connectionManager.connectedPlayers
@@ -45,7 +45,7 @@
 				{#each subviewModel.subviews as subview, index (subview)}
 					<button
 						class={[
-							'w-48 min-w-48 cursor-pointer border-primary-600 px-2 py-1',
+							'flex h-8 w-48 min-w-48 cursor-pointer items-center justify-center border-primary-600 px-2 py-1 leading-snug',
 							index === 0 ? 'rounded-tl-md rounded-bl-md' : '',
 							index === subviewModel.subviews.length - 1 ? 'rounded-tr-md rounded-br-md' : ''
 						]}
