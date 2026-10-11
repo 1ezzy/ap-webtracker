@@ -25,24 +25,24 @@ export const mapMessageWithColors = (nodes: MessageNode[]): MessageNodeWithColor
 				if (uncoloredNode.item.progression) {
 					return { node: uncoloredNode, color: 'text-success' };
 				} else if (uncoloredNode.item.useful) {
-					return { node: uncoloredNode, color: 'text-secondary-400' };
+					return { node: uncoloredNode, color: 'text-tertiary' };
 				} else if (uncoloredNode.item.trap) {
-					return { node: uncoloredNode, color: 'text-accent' };
+					return { node: uncoloredNode, color: 'text-danger' };
 				}
 
-				return { node: uncoloredNode, color: 'text-surface-600' };
+				return { node: uncoloredNode, color: 'text-surface-700' };
 			case 'location':
-				return { node: uncoloredNode, color: 'text-secondary-400' };
+				return { node: uncoloredNode, color: 'text-accent' };
 			case 'color':
 				if (COLOR_MESSAGE_TAILWIND_MAP[uncoloredNode.color]) {
 					return { node: uncoloredNode, color: COLOR_MESSAGE_TAILWIND_MAP[uncoloredNode.color] };
 				}
 
-				return { node: uncoloredNode, color: 'text-surface-600' };
+				return { node: uncoloredNode, color: 'text-surface-700' };
 			case 'player':
 				return connectionManager.connectedSlots.has(uncoloredNode.player.slot)
 					? { node: uncoloredNode, color: 'text-primary' }
-					: { node: uncoloredNode, color: 'text-surface-600' };
+					: { node: uncoloredNode, color: 'text-surface-700' };
 			case 'text':
 				return { node: uncoloredNode, color: 'text-white' };
 			default:

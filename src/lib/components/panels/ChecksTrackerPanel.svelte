@@ -4,8 +4,11 @@
 	import { connectionManager } from '$lib/clients/connection-manager.svelte';
 	import AddConnectionModal from '$lib/components/modals/AddConnectionModal.svelte';
 	import { Connection } from '$lib/clients/connection.svelte';
+	import ChevronRight from '@lucide/svelte/icons/chevron-right';
 
 	let connections = $derived(connectionManager.connections);
+
+	let open = $state(true);
 
 	const openAddConnectionModal = () => {
 		modals.open(AddConnectionModal, { title: 'Add New Connection' });
@@ -56,9 +59,20 @@
 	</div>
 {/snippet}
 
-<div class="flex h-full w-full flex-col gap-4 overflow-y-hidden">
-	<h2 class="flex items-center gap-2 text-fluid-lg">Checks Tracker</h2>
-	<div class="panel overflow-x-scroll bg-secondary-400">
+<details
+	bind:open
+	class={[
+		'flex h-full w-full flex-col overflow-hidden',
+		'details-content:flex details-content:min-h-0 details-content:flex-1 details-content:flex-col'
+	]}
+>
+	<summary class="flex h-fit w-full items-center justify-between">
+		<h2 class="flex items-center gap-2 text-fluid-lg">Checks Tracker</h2>
+		<div class="flex h-full items-center gap-2">
+			<ChevronRight class={['transition duration-300', open ? 'rotate-90' : '']}></ChevronRight>
+		</div>
+	</summary>
+	<div class="mt-4 flex panel h-full min-h-0 flex-col gap-2 bg-secondary-400">
 		<div class="flex h-full w-full flex-col gap-4">
 			<div class="flex w-full gap-x-4">
 				{#each connections as connection (connection.id)}
@@ -68,4 +82,4 @@
 			</div>
 		</div>
 	</div>
-</div>
+</details>

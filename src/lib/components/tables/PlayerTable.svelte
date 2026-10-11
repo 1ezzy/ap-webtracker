@@ -33,7 +33,7 @@
 				<tbody>
 					{#each players as player, index (player?.name)}
 						<tr
-							class="h-8 border-t-2 border-white"
+							class="h-8 border-t-2 border-white bg-surface-300"
 							class:text-success={activePlayerSlotIDs.includes(index + 1)}
 						>
 							<td class="table-cell">{player?.name}</td>
