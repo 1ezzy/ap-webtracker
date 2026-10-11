@@ -59,9 +59,6 @@
 			</div>
 		</div>
 		<div class="grid min-h-0 grid-rows-[min-content_minmax(0,1fr)] gap-4">
-			<div class="text-fluid-4xl">
-				<h2>{subviewModel.subviews[subviewModel.selectedSubviewIndex]} Tracker</h2>
-			</div>
 			{#if subviewModel.selectedSubviewIndex === 0}
 				{@render hintsSubview()}
 			{:else if subviewModel.selectedSubviewIndex === 1}
@@ -73,11 +70,16 @@
 
 {#snippet hintsSubview()}
 	<div class="grid min-h-0 grid-rows-[min-content_minmax(0,1fr)] gap-2 overflow-hidden 2xl:gap-4">
-		<div class="flex flex-row items-center gap-2 2xl:gap-4">
-			<Badge label="Hint Points" value={`${activeConnection.hintPoints}pts`} color="primary"
-			></Badge>
-			<Badge label="Next Hint Cost" value={`${activeConnection.hintCost}pts`} color="primary"
-			></Badge>
+		<div class="flex flex-row items-center gap-8 2xl:gap-16">
+			<h2 class="text-fluid-4xl leading-tight">
+				{subviewModel.subviews[subviewModel.selectedSubviewIndex]} Tracker
+			</h2>
+			<div class="flex flex-row items-center gap-2 2xl:gap-4">
+				<Badge label="Hint Points" value={`${activeConnection.hintPoints}pts`} color="primary"
+				></Badge>
+				<Badge label="Next Hint Cost" value={`${activeConnection.hintCost}pts`} color="primary"
+				></Badge>
+			</div>
 		</div>
 		<HintTrackerTable hints={activeConnection.hints} activeSlotName={activeConnection.slotName}
 		></HintTrackerTable>
@@ -86,14 +88,19 @@
 
 {#snippet itemsSubview()}
 	<div class="grid min-h-0 grid-rows-[min-content_minmax(0,1fr)] gap-2 overflow-hidden 2xl:gap-4">
-		<div class="flex flex-row items-center gap-2 2xl:gap-4">
-			<Badge label="Checks Obtained" value={`${activeConnection.checksObtained}`} color="primary"
-			></Badge>
-			<Badge
-				label="Checks Remaining"
-				value={`${activeConnection.checksTotal - activeConnection.checksObtained}`}
-				color="primary"
-			></Badge>
+		<div class="flex flex-row items-center gap-8 2xl:gap-16">
+			<h2 class="text-fluid-4xl leading-tight">
+				{subviewModel.subviews[subviewModel.selectedSubviewIndex]} Tracker
+			</h2>
+			<div class="flex flex-row items-center gap-2 2xl:gap-4">
+				<Badge label="Checks Obtained" value={`${activeConnection.checksObtained}`} color="primary"
+				></Badge>
+				<Badge
+					label="Checks Remaining"
+					value={`${activeConnection.checksTotal - activeConnection.checksObtained}`}
+					color="primary"
+				></Badge>
+			</div>
 		</div>
 		<ItemTrackerTable></ItemTrackerTable>
 	</div>
