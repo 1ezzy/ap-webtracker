@@ -1,6 +1,5 @@
 <script lang="ts">
 	import CircleX from '@lucide/svelte/icons/circle-x';
-	import ListCheck from '@lucide/svelte/icons/list-check';
 	import { connectionManager } from '$lib/clients/connection-manager.svelte';
 	import Tooltip from '$lib/components/atomics/Tooltip.svelte';
 	import GithubIcon from '$lib/components/icons/GithubIcon.svelte';
@@ -48,16 +47,8 @@
 </script>
 
 {#snippet buttons()}
-	<div class="grid grid-cols-[1fr_min-content_min-content] gap-4">
+	<div class="grid grid-cols-[1fr_min-content] gap-4">
 		<button class="button button-lg w-full button-success">Connect to Server</button>
-		<Tooltip
-			class="icon-button button-lg button-surface"
-			anchorName="games-tooltip"
-			label="List of Supported Games"
-			tooltipText="Supported Games"
-		>
-			<ListCheck></ListCheck>
-		</Tooltip>
 		<a href="https://github.com/1ezzy/ap-webtracker" target="_blank">
 			<Tooltip
 				class="icon-button button-lg button-surface"
