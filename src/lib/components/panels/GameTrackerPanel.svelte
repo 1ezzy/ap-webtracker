@@ -58,7 +58,7 @@
 				{/each}
 			</div>
 		</div>
-		<div class="grid min-h-0 grid-rows-[min-content_minmax(0,1fr)] gap-4">
+		<div class="grid min-h-0 grid-rows-[minmax(0,1fr)] gap-4">
 			{#if subviewModel.selectedSubviewIndex === 0}
 				{@render hintsSubview()}
 			{:else if subviewModel.selectedSubviewIndex === 1}
