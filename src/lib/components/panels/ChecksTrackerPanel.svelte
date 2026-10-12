@@ -72,14 +72,12 @@
 			<ChevronRight class={['transition duration-300', open ? 'rotate-90' : '']}></ChevronRight>
 		</div>
 	</summary>
-	<div class="mt-4 flex panel h-full min-h-0 flex-col gap-2 bg-secondary-400">
-		<div class="flex h-full w-full flex-col gap-4">
-			<div class="flex w-full gap-x-4">
-				{#each connections as connection (connection.id)}
-					{@render gamePanel(connection)}
-				{/each}
-				{@render connectionPanel()}
-			</div>
+	<div class="mt-4 panel h-full min-h-0 overflow-x-scroll bg-secondary-400">
+		<div class="flex h-full w-max flex-row gap-x-4">
+			{#each connections as connection (connection.id)}
+				{@render gamePanel(connection)}
+			{/each}
+			{@render connectionPanel()}
 		</div>
 	</div>
 </details>
