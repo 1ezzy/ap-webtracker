@@ -1,5 +1,6 @@
-import { Client } from 'archipelago.js';
+import { Client, Item } from 'archipelago.js';
 import type { ConnectedPacket, Hint, MessageNode, Player, RoomUpdatePacket } from 'archipelago.js';
+import { SvelteSet } from 'svelte/reactivity';
 
 let nextConnectionId = 0;
 
@@ -14,7 +15,7 @@ export class Connection {
 	socketManager = $derived(this.client.socket);
 	messageManager = $derived(this.client.messages);
 	roomStateManager = $derived(this.client.room);
-	itemStateManager = $derived(this.client.items);
+	itemsManager = $derived(this.client.items);
 
 	// single slot connection status
 	connected = $state(false);
@@ -26,6 +27,7 @@ export class Connection {
 
 	// single slot game-specific information
 	gameName = $state<string | null>(null);
+	remainingItems = $state<Item[]>([]);
 
 	// single slot slot-specific information
 	checksTotal = $state<number>(0);
@@ -64,16 +66,21 @@ export class Connection {
 			this.checksObtained = this.roomStateManager.checkedLocations.length;
 			this.hintPoints = this.roomStateManager.hintPoints;
 			this.hintCost = this.roomStateManager.hintCost;
+
+			const missingItems = new SvelteSet(this.roomStateManager.missingLocations);
+			this.remainingItems = this.remainingItems.filter((item) => missingItems.has(item.locationId));
 		};
 		this.roomStateManager.on('locationsChecked', syncRoomState);
 		this.roomStateManager.on('hintPointsUpdated', syncRoomState);
 		this.roomStateManager.on('hintCostUpdated', syncRoomState);
 
 		// messages received by the item state manager
-		const syncHints = () => (this.hints = this.itemStateManager.hints);
-		this.itemStateManager.on('hintsInitialized', syncHints);
-		this.itemStateManager.on('hintReceived', syncHints);
-		this.itemStateManager.on('hintFound', syncHints);
+		const syncHints = () => {
+			this.hints = this.itemsManager.hints;
+		};
+		this.itemsManager.on('hintsInitialized', syncHints);
+		this.itemsManager.on('hintReceived', syncHints);
+		this.itemsManager.on('hintFound', syncHints);
 	}
 
 	async connect(url: string, password?: string) {
@@ -90,6 +97,8 @@ export class Connection {
 			throw err;
 		} finally {
 			this.connecting = false;
+
+			this.remainingItems = await this.client.scout(this.roomStateManager.missingLocations);
 		}
 	}
 

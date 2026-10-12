@@ -102,7 +102,7 @@
 				></Badge>
 			</div>
 		</div>
-		<ItemTrackerTable></ItemTrackerTable>
+		<ItemTrackerTable items={activeConnection.remainingItems}></ItemTrackerTable>
 	</div>
 {/snippet}
 
