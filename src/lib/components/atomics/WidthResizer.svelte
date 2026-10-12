@@ -14,13 +14,13 @@
 	<span
 		class={[
 			handleHovered || handleActive ? 'border-r border-l border-dashed' : '',
-			handleActive ? 'border-primary' : 'border-surface-700'
+			handleActive ? 'border-white' : 'border-surface-700'
 		]}
 	></span>
 	<MoveHorizontal
 		class={[
 			'button icon-button button-md cursor-col-resize touch-none button-surface',
-			handleActive ? 'text-primary' : 'text-surface-700'
+			handleActive ? 'text-white' : 'text-surface-700'
 		]}
 		onpointerenter={() => (handleHovered = true)}
 		onpointerleave={() => (handleHovered = false)}
@@ -37,7 +37,7 @@
 	<span
 		class={[
 			handleHovered || handleActive ? 'border-r border-l border-dashed' : '',
-			handleActive ? 'border-primary' : 'border-surface-700'
+			handleActive ? 'border-white' : 'border-surface-700'
 		]}
 	></span>
 </div>
