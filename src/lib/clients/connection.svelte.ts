@@ -10,23 +10,29 @@ export class Connection {
 	readonly client = new Client();
 	readonly slotName: string;
 
+	// managers from the instance of the client
 	socketManager = $derived(this.client.socket);
 	messageManager = $derived(this.client.messages);
 	roomStateManager = $derived(this.client.room);
 	itemStateManager = $derived(this.client.items);
 
+	// single slot connection status
 	connected = $state(false);
 	connecting = $state(false);
 	error = $state<string | null>(null);
+
+	// entire lobby players
 	players = $state<(Player | null)[]>([]);
 
+	// single slot game-specific information
 	gameName = $state<string | null>(null);
+
+	// single slot slot-specific information
 	checksTotal = $state<number>(0);
 	checksObtained = $state<number>(0);
-
-	hints = $derived<Hint[]>([]);
-	hintCost = $derived<number>(this.roomStateManager.hintCost);
-	hintPoints = $derived<number>(this.roomStateManager.hintPoints);
+	hints = $state<Hint[]>([]);
+	hintCost = $state<number>(0);
+	hintPoints = $state<number>(0);
 
 	constructor(slotName: string, onMessage: MessageListener) {
 		this.slotName = slotName;
@@ -41,7 +47,9 @@ export class Connection {
 			this.checksTotal = packet.missing_locations.length + packet.checked_locations.length;
 		});
 		this.socketManager.on('roomUpdate', (packet) => {
-			this.players = this.getPlayersFromPacket(packet);
+			if (packet.players) {
+				this.players = this.getPlayersFromPacket(packet);
+			}
 		});
 		this.socketManager.on('disconnected', () => {
 			this.connected = false;
@@ -52,13 +60,20 @@ export class Connection {
 		this.messageManager.on('message', (text, nodes) => onMessage(this, text, nodes));
 
 		// messages received by the room manager
-		this.roomStateManager.on('locationsChecked', () => {
+		const syncRoomState = () => {
 			this.checksObtained = this.roomStateManager.checkedLocations.length;
-		});
+			this.hintPoints = this.roomStateManager.hintPoints;
+			this.hintCost = this.roomStateManager.hintCost;
+		};
+		this.roomStateManager.on('locationsChecked', syncRoomState);
+		this.roomStateManager.on('hintPointsUpdated', syncRoomState);
+		this.roomStateManager.on('hintCostUpdated', syncRoomState);
 
 		// messages received by the item state manager
-		this.itemStateManager.on('hintsInitialized', (hints) => (this.hints = hints));
-		this.itemStateManager.on('hintReceived', (hint) => this.hints.push(hint));
+		const syncHints = () => (this.hints = this.itemStateManager.hints);
+		this.itemStateManager.on('hintsInitialized', syncHints);
+		this.itemStateManager.on('hintReceived', syncHints);
+		this.itemStateManager.on('hintFound', syncHints);
 	}
 
 	async connect(url: string, password?: string) {
