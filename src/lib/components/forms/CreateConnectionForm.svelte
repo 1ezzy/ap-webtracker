@@ -40,7 +40,7 @@
 		slotName
 	}: ConnectionDetails) => {
 		await connectionManager
-			.createConnection(`${hostName}:${portNum}`, slotName, password)
+			.createInitialConnection(`${hostName}:${portNum}`, slotName, password)
 			.then(() => console.log('Connected to the Archipelago server!'))
 			.catch(console.error);
 	};
