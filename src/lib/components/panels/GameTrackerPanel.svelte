@@ -2,7 +2,7 @@
 	import { connectionManager } from '$lib/clients/connection-manager.svelte';
 	import Badge from '$lib/components/atomics/Badge.svelte';
 	import HintTrackerTable from '$lib/components/tables/HintTrackerTable.svelte';
-	import ItemTrackerTable from '$lib/components/tables/ItemTrackerTable.svelte';
+	import CheckTrackerTable from '$lib/components/tables/CheckTrackerTable.svelte';
 
 	let games = $derived(
 		connectionManager.connectedPlayers
@@ -14,7 +14,7 @@
 	let activeConnection = $derived(connectionManager.connections[activeTab]);
 
 	let subviewModel = $state({
-		subviews: ['Hints', 'Items'],
+		subviews: ['Hints', 'Checks'],
 		selectedSubviewIndex: 0
 	});
 </script>
@@ -62,7 +62,7 @@
 			{#if subviewModel.selectedSubviewIndex === 0}
 				{@render hintsSubview()}
 			{:else if subviewModel.selectedSubviewIndex === 1}
-				{@render itemsSubview()}
+				{@render checksSubview()}
 			{/if}
 		</div>
 	</div>
@@ -86,7 +86,7 @@
 	</div>
 {/snippet}
 
-{#snippet itemsSubview()}
+{#snippet checksSubview()}
 	<div class="grid min-h-0 grid-rows-[min-content_minmax(0,1fr)] gap-2 overflow-hidden 2xl:gap-4">
 		<div class="flex flex-row items-center gap-8 2xl:gap-16">
 			<h2 class="text-fluid-4xl leading-tight">
@@ -102,7 +102,7 @@
 				></Badge>
 			</div>
 		</div>
-		<ItemTrackerTable items={activeConnection.remainingItems}></ItemTrackerTable>
+		<CheckTrackerTable checks={activeConnection.remainingItems}></CheckTrackerTable>
 	</div>
 {/snippet}
 

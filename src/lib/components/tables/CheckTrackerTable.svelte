@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { Item } from 'archipelago.js';
 
-	let { items }: { items: Item[] } = $props();
+	let { checks }: { checks: Item[] } = $props();
 </script>
 
 <div class="mt-4 flex min-h-0 flex-1 flex-col">
@@ -16,25 +16,25 @@
 				</tr>
 			</thead>
 			<tbody>
-				{#each items as item (item.locationId)}
+				{#each checks as check (check.locationId)}
 					<tr class="h-8 border-t-2 border-white">
 						<td class="table-cell text-accent">
-							{item.locationName}
+							{check.locationName}
 						</td>
 						<td
 							class="table-cell"
-							class:text-surface-700={!item.progression && !item.useful && !item.trap}
-							class:text-success={item.progression}
-							class:text-tertiary={item.useful}
-							class:text-danger={item.trap}
+							class:text-surface-700={!check.progression && !check.useful && !check.trap}
+							class:text-success={check.progression}
+							class:text-tertiary={check.useful}
+							class:text-danger={check.trap}
 						>
-							{item.name}
+							{check.name}
 						</td>
 						<td class="table-cell text-secondary">
-							{item.receiver}
+							{check.receiver}
 						</td>
 						<td class="table-cell text-primary">
-							{item.game}
+							{check.game}
 						</td>
 					</tr>
 				{/each}
