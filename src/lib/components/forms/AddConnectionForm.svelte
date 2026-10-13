@@ -13,7 +13,7 @@
 	<div>
 		<h3 class="text-fluid-lg text-white">Select an Additional Slot</h3>
 	</div>
-	<select class="input input-surface" bind:value={slotName}>
+	<select class="input input-white" bind:value={slotName}>
 		{#if !slotName}
 			<option class="font-open-sans" value={null}> Select a slot </option>
 		{/if}

@@ -3,6 +3,7 @@
 	import Badge from '$lib/components/atomics/Badge.svelte';
 	import HintTrackerTable from '$lib/components/tables/HintTrackerTable.svelte';
 	import CheckTrackerTable from '$lib/components/tables/CheckTrackerTable.svelte';
+	import GameTrackerPanelSubview from '$lib/components/panels/GameTrackerPanelSubview.svelte';
 
 	let games = $derived(
 		connectionManager.connectedPlayers
@@ -60,50 +61,42 @@
 		</div>
 		<div class="grid min-h-0 grid-rows-[minmax(0,1fr)] gap-4">
 			{#if subviewModel.selectedSubviewIndex === 0}
-				{@render hintsSubview()}
+				<GameTrackerPanelSubview
+					badges={hintsBadges}
+					subviewTitle={subviewModel.subviews[subviewModel.selectedSubviewIndex]}
+					TrackerTable={HintTrackerTable}
+					trackerTableProps={{
+						hints: activeConnection.hints,
+						activeSlotName: activeConnection.slotName
+					}}
+				></GameTrackerPanelSubview>
 			{:else if subviewModel.selectedSubviewIndex === 1}
-				{@render checksSubview()}
+				<GameTrackerPanelSubview
+					badges={checksBadges}
+					subviewTitle={subviewModel.subviews[subviewModel.selectedSubviewIndex]}
+					TrackerTable={CheckTrackerTable}
+					trackerTableProps={{
+						checks: activeConnection.remainingItems
+					}}
+				></GameTrackerPanelSubview>
 			{/if}
 		</div>
 	</div>
 {/snippet}
 
-{#snippet hintsSubview()}
-	<div class="grid min-h-0 grid-rows-[min-content_minmax(0,1fr)] gap-2 overflow-hidden 2xl:gap-4">
-		<div class="flex flex-row items-center gap-8 2xl:gap-16">
-			<h2 class="text-fluid-4xl leading-tight">
-				{subviewModel.subviews[subviewModel.selectedSubviewIndex]} Tracker
-			</h2>
-			<div class="flex flex-row items-center gap-2 2xl:gap-4">
-				<Badge label="Hint Points" value={`${activeConnection.hintPoints}pts`} color="primary"
-				></Badge>
-				<Badge label="Next Hint Cost" value={`${activeConnection.hintCost}pts`} color="primary"
-				></Badge>
-			</div>
-		</div>
-		<HintTrackerTable hints={activeConnection.hints} activeSlotName={activeConnection.slotName}
-		></HintTrackerTable>
-	</div>
+{#snippet hintsBadges()}
+	<Badge label="Hint Points" value={`${activeConnection.hintPoints}pts`} color="primary"></Badge>
+	<Badge label="Next Hint Cost" value={`${activeConnection.hintCost}pts`} color="primary"></Badge>
 {/snippet}
 
-{#snippet checksSubview()}
-	<div class="grid min-h-0 grid-rows-[min-content_minmax(0,1fr)] gap-2 overflow-hidden 2xl:gap-4">
-		<div class="flex flex-row items-center gap-8 2xl:gap-16">
-			<h2 class="text-fluid-4xl leading-tight">
-				{subviewModel.subviews[subviewModel.selectedSubviewIndex]} Tracker
-			</h2>
-			<div class="flex flex-row items-center gap-2 2xl:gap-4">
-				<Badge label="Checks Obtained" value={`${activeConnection.checksObtained}`} color="primary"
-				></Badge>
-				<Badge
-					label="Checks Remaining"
-					value={`${activeConnection.checksTotal - activeConnection.checksObtained}`}
-					color="primary"
-				></Badge>
-			</div>
-		</div>
-		<CheckTrackerTable checks={activeConnection.remainingItems}></CheckTrackerTable>
-	</div>
+{#snippet checksBadges()}
+	<Badge label="Checks Obtained" value={`${activeConnection.checksObtained}`} color="primary"
+	></Badge>
+	<Badge
+		label="Checks Remaining"
+		value={`${activeConnection.checksTotal - activeConnection.checksObtained}`}
+		color="primary"
+	></Badge>
 {/snippet}
 
 <div class="flex h-full w-full flex-col overflow-hidden">

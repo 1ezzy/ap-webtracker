@@ -100,7 +100,7 @@
 		<div class="grid grid-rows-[min-content_auto] gap-1 2xl:gap-2">
 			<span class="text-fluid-xs">Command Input</span>
 			<div class="grid grid-rows-2 gap-2 2xl:gap-4">
-				<select class="input input-surface" bind:value={selectedSlot}>
+				<select class="input input-white" bind:value={selectedSlot}>
 					{#if !selectedSlot}
 						<option class="font-open-sans" value={null}> Select a slot </option>
 					{/if}
@@ -115,7 +115,7 @@
 					onsubmit={onMessageSubmit}
 				>
 					<input
-						class="input input-surface"
+						class="input input-white"
 						placeholder="!hint [item name] or type a message"
 						bind:value={message}
 					/>

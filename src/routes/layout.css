@@ -105,4 +105,8 @@
 :root {
 	font-family: 'Open Sans';
 	font-weight: 600;
+
+	& input:focus {
+		outline: none;
+	}
 }
