@@ -69,7 +69,8 @@
 	<summary class="flex h-fit w-full items-center justify-between">
 		<h2 class="flex items-center gap-2 text-fluid-lg">Checks Overview</h2>
 		<div class="flex h-full items-center gap-2">
-			<ChevronRight class={['transition duration-300', open ? 'rotate-90' : '']}></ChevronRight>
+			<ChevronRight class={['icon-md transition duration-300', open ? 'rotate-90' : '']}
+			></ChevronRight>
 		</div>
 	</summary>
 	<div class="mt-4 panel h-full min-h-0 overflow-x-scroll bg-secondary-400">

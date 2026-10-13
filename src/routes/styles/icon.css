@@ -3,13 +3,13 @@
 }
 
 @utility icon-sm {
-	@apply h-2 2xl:h-4;
+	@apply h-2 w-2 2xl:h-4 2xl:w-4;
 }
 
 @utility icon-md {
-	@apply h-4 2xl:h-6;
+	@apply h-4 w-4 2xl:h-6 2xl:w-6;
 }
 
 @utility icon-lg {
-	@apply h-6 2xl:h-8;
+	@apply h-6 w-6 2xl:h-8 2xl:w-8;
 }

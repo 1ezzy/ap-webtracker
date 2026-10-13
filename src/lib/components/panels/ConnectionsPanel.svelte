@@ -62,7 +62,8 @@
 			>
 				<Plus onclick={openAddConnectionModal}></Plus>
 			</Tooltip>
-			<ChevronRight class={['transition duration-300', open ? 'rotate-90' : '']}></ChevronRight>
+			<ChevronRight class={['icon-md transition duration-300', open ? 'rotate-90' : '']}
+			></ChevronRight>
 		</div>
 	</summary>
 	<div class="mt-4 flex panel h-full min-h-0 flex-col gap-2 bg-accent 2xl:gap-4">

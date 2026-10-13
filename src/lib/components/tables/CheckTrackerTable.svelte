@@ -7,7 +7,7 @@
 <div class="mt-4 flex min-h-0 flex-1 flex-col">
 	<div class="min-h-0 flex-1 overflow-y-auto text-fluid-xs">
 		<table class="w-full table-fixed rounded-2xl border-2 border-white bg-surface-200">
-			<thead class="bg-primary text-primary-content">
+			<thead class="bg-primary text-black">
 				<tr class="h-12">
 					<th class="table-cell w-1/4">Check</th>
 					<th class="table-cell w-1/4">Received Item</th>

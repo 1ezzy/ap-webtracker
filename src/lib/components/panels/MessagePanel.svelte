@@ -76,7 +76,8 @@
 >
 	<summary class="flex h-fit w-full items-center justify-between">
 		<h2 class="flex items-center gap-2 text-fluid-lg">Multiworld Messages</h2>
-		<ChevronRight class={['transition duration-300', open ? 'rotate-90' : '']}></ChevronRight>
+		<ChevronRight class={['icon-md transition duration-300', open ? 'rotate-90' : '']}
+		></ChevronRight>
 	</summary>
 	<div class="mt-4 flex h-full min-h-0 flex-col gap-2 2xl:gap-4">
 		<div

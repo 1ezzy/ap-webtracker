@@ -25,7 +25,7 @@
 		{#each games as game, i (game)}
 			<button
 				class={[
-					'cursor-pointer bg-primary px-2 pt-1 pb-2',
+					'cursor-pointer bg-primary px-2 pt-1 pb-2 text-black',
 					'rounded-tl-lg rounded-tr-lg border-4 border-b-0 border-primary'
 				]}
 				class:border-white={activeTab === i}

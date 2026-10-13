@@ -19,12 +19,13 @@
 			Room Info
 			<span class="text-fluid-sm"> ({players.length})</span>
 		</h2>
-		<ChevronRight class={['transition duration-300', open ? 'rotate-90' : '']}></ChevronRight>
+		<ChevronRight class={['icon-md transition duration-300', open ? 'rotate-90' : '']}
+		></ChevronRight>
 	</summary>
 	<div class="mt-4 flex min-h-0 flex-1 flex-col">
 		<div class="min-h-0 flex-1 overflow-y-auto text-fluid-xs">
 			<table class="w-full table-fixed rounded-2xl border-2 border-white bg-surface-200">
-				<thead class="bg-accent text-primary-content">
+				<thead class="bg-accent text-black">
 					<tr class="h-12">
 						<th class="table-cell w-1/2">Player</th>
 						<th class="table-cell w-1/2">Game</th>
