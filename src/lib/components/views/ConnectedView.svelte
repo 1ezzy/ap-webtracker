@@ -1,6 +1,6 @@
 <script lang="ts">
 	import ConnectionsPanel from '$lib/components/panels/ConnectionsPanel.svelte';
-	import ChecksTrackerPanel from '$lib/components/panels/ChecksTrackerPanel.svelte';
+	import ChecksOverviewPanel from '$lib/components/panels/ChecksOverviewPanel.svelte';
 	import PlayerTable from '$lib/components/tables/PlayerTable.svelte';
 	import GameTrackerPanel from '$lib/components/panels/GameTrackerPanel.svelte';
 	import MessagePanel from '$lib/components/panels/MessagePanel.svelte';
@@ -77,7 +77,7 @@
 		]}
 		bind:clientWidth={widthManager.measuredWidths[1]}
 	>
-		<ChecksTrackerPanel></ChecksTrackerPanel>
+		<ChecksOverviewPanel></ChecksOverviewPanel>
 		<GameTrackerPanel></GameTrackerPanel>
 	</section>
 </div>
