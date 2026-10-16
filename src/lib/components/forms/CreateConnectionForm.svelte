@@ -49,16 +49,15 @@
 {#snippet buttons()}
 	<div class="grid grid-cols-[1fr_min-content] gap-4">
 		<button class="button button-lg w-full button-success">Connect to Server</button>
-		<a href="https://github.com/1ezzy/ap-webtracker" target="_blank">
-			<Tooltip
-				class="icon-button button-lg button-surface"
-				anchorName="github-tooltip"
-				label="GitHub"
-				tooltipText="GitHub Repo"
-			>
-				<GithubIcon></GithubIcon>
-			</Tooltip>
-		</a>
+		<Tooltip
+			href="https://github.com/1ezzy/ap-webtracker"
+			class="icon-button button-lg button-surface"
+			anchorName="github-tooltip"
+			label="GitHub"
+			tooltipText="GitHub Repo"
+		>
+			<GithubIcon></GithubIcon>
+		</Tooltip>
 	</div>
 {/snippet}
 
