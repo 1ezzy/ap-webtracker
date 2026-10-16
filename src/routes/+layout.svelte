@@ -29,14 +29,17 @@
 </Modals>
 
 <div class="grid h-screen w-full grid-rows-[min-content_1fr] bg-surface text-white">
-	<header
-		class="flex h-fit w-full flex-row items-center justify-between px-6 py-4 2xl:px-12 2xl:py-8"
-	>
-		<div class="flex w-fit flex-row items-center justify-center gap-4">
+	<header class="start flex h-fit w-full flex-row justify-between">
+		<div
+			class={[
+				'flex w-fit flex-row items-center justify-center gap-4',
+				'px-6 py-4 2xl:px-12 2xl:py-8'
+			]}
+		>
 			<img class="aspect-square h-8 w-fit" src={logo} alt="Archipelago Logo" />
 			<h1 class="text-fluid-lg">Archipelago Webtracker</h1>
 		</div>
-		<div class="flex w-fit flex-row items-center justify-center gap-4">
+		<div class={['flex w-fit flex-row items-start justify-center gap-4', 'p-2 2xl:p-4']}>
 			<Tooltip
 				href="https://github.com/1ezzy"
 				anchorName="github-link"
