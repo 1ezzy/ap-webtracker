@@ -4,7 +4,7 @@
 	import { connectionManager } from '$lib/clients/connection-manager.svelte';
 	import AddConnectionModal from '$lib/components/modals/AddConnectionModal.svelte';
 	import { Connection } from '$lib/clients/connection.svelte';
-	import ChevronRight from '@lucide/svelte/icons/chevron-right';
+	import ChevronDown from '@lucide/svelte/icons/chevron-down';
 
 	let connections = $derived(connectionManager.connections);
 
@@ -69,8 +69,8 @@
 	<summary class="flex h-fit w-full items-center justify-between">
 		<h2 class="flex items-center gap-2 text-fluid-lg">Checks Overview</h2>
 		<div class="flex h-full items-center gap-2">
-			<ChevronRight class={['icon-md transition duration-300', open ? 'rotate-90' : '']}
-			></ChevronRight>
+			<ChevronDown class={['icon icon-md transition duration-300', open ? '-scale-y-100' : '']}
+			></ChevronDown>
 		</div>
 	</summary>
 	<div class="mt-4 panel h-full min-h-0 overflow-x-scroll bg-secondary-400">

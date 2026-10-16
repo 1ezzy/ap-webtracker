@@ -1,8 +1,18 @@
 <script lang="ts">
 	import Search from '@lucide/svelte/icons/search';
-	import FilterDropdown from '$lib/components/atomics/FilterDropdown.svelte';
+	import type { Snippet } from 'svelte';
 
-	let { badges, subviewTitle, TrackerTable, trackerTableProps } = $props();
+	let {
+		badges,
+		subviewTitle,
+		trackerTable,
+		tableFilters
+	}: {
+		badges: Snippet;
+		subviewTitle: string;
+		trackerTable: Snippet;
+		tableFilters: Snippet;
+	} = $props();
 </script>
 
 <div
@@ -22,11 +32,8 @@
 			<input class="" placeholder="Search..." />
 		</span>
 		<div class="flex flex-row items-center gap-2 2xl:gap-4">
-			<FilterDropdown filterLabel="Receiving Player"></FilterDropdown>
-			<FilterDropdown filterLabel="Item Name"></FilterDropdown>
-			<FilterDropdown filterLabel="Finding Player"></FilterDropdown>
-			<FilterDropdown filterLabel="Location Name"></FilterDropdown>
+			{@render tableFilters()}
 		</div>
 	</div>
-	<TrackerTable {...trackerTableProps}></TrackerTable>
+	{@render trackerTable()}
 </div>

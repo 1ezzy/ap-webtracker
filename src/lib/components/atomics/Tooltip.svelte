@@ -42,7 +42,7 @@
 		{@render children()}
 	</button>
 	<span
-		class={['tooltip']}
+		class={['popover']}
 		style:position-anchor={positionAnchorClass}
 		class:hidden={!showTooltip}
 		class:block={showTooltip}

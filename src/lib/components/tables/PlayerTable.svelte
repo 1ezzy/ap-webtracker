@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { connectionManager } from '$lib/clients/connection-manager.svelte';
-	import ChevronRight from '@lucide/svelte/icons/chevron-right';
+	import ChevronDown from '@lucide/svelte/icons/chevron-down';
 
 	let players = $derived(connectionManager.players);
 	let activePlayerSlotIDs = $derived([...connectionManager.connectedSlots]);
@@ -19,8 +19,8 @@
 			Room Info
 			<span class="text-fluid-sm"> ({players.length})</span>
 		</h2>
-		<ChevronRight class={['icon-md transition duration-300', open ? 'rotate-90' : '']}
-		></ChevronRight>
+		<ChevronDown class={['icon-md transition duration-300', open ? '-scale-y-100' : '']}
+		></ChevronDown>
 	</summary>
 	<div class="mt-4 flex min-h-0 flex-1 flex-col">
 		<div class="min-h-0 flex-1 overflow-y-auto text-fluid-xs">

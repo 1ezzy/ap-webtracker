@@ -4,6 +4,9 @@
 	import HintTrackerTable from '$lib/components/tables/HintTrackerTable.svelte';
 	import CheckTrackerTable from '$lib/components/tables/CheckTrackerTable.svelte';
 	import GameTrackerPanelSubview from '$lib/components/panels/GameTrackerPanelSubview.svelte';
+	import StringFilter from '$lib/components/filters/StringFilter.svelte';
+	import type { SelectedFilterItem } from '$lib/components/filters/filter.types';
+	import type { Hint } from 'archipelago.js';
 
 	let games = $derived(
 		connectionManager.connectedPlayers
@@ -18,6 +21,55 @@
 		subviews: ['Hints', 'Checks'],
 		selectedSubviewIndex: 0
 	});
+
+	// filter-specific logic
+	// TODO: should this be moved to a service?
+	let hintsWithFiltersApplied = $derived.by(() => {
+		if (filterState.every((filter) => filter === null)) {
+			return activeConnection.hints;
+		}
+
+		return activeConnection.hints.filter((hint) => filterHintByConditional(hint));
+	});
+	let filterState = $state([null, null, null] as SelectedFilterItem[]);
+	let receivingPlayerFilterItems = $derived(
+		[...new Set(hintsWithFiltersApplied.flatMap((hint) => hint.item.receiver.name))].map(
+			(hint) => ({
+				label: hint,
+				value: hint
+			})
+		)
+	);
+	let findingPlayerFilterItems = $derived(
+		[...new Set(hintsWithFiltersApplied.flatMap((hint) => hint.item.sender.name))].map((hint) => ({
+			label: hint,
+			value: hint
+		}))
+	);
+	let foundFilterItems = $derived(
+		[
+			...new Set(
+				hintsWithFiltersApplied.flatMap((hint) => (hint.status === 40 ? 'Found' : 'Not Found'))
+			)
+		].map((hint) => ({
+			label: hint,
+			value: hint
+		}))
+	);
+
+	const filterHintByConditional = (hint: Hint): boolean => {
+		const appliedFilterLabels = filterState.map((filter) => filter?.label);
+
+		if (
+			hint.item.receiver.name !== appliedFilterLabels[0] &&
+			hint.item.sender.name !== appliedFilterLabels[1] &&
+			(hint.status === 40 ? 'Found' : 'Not Found') !== appliedFilterLabels[2]
+		) {
+			return false;
+		} else {
+			return true;
+		}
+	};
 </script>
 
 {#snippet tabs(games: string[])}
@@ -64,24 +116,49 @@
 				<GameTrackerPanelSubview
 					badges={hintsBadges}
 					subviewTitle={subviewModel.subviews[subviewModel.selectedSubviewIndex]}
-					TrackerTable={HintTrackerTable}
-					trackerTableProps={{
-						hints: activeConnection.hints,
-						activeSlotName: activeConnection.slotName
-					}}
+					trackerTable={hintTrackerTable}
+					tableFilters={hintTrackerTableFilters}
 				></GameTrackerPanelSubview>
 			{:else if subviewModel.selectedSubviewIndex === 1}
 				<GameTrackerPanelSubview
 					badges={checksBadges}
 					subviewTitle={subviewModel.subviews[subviewModel.selectedSubviewIndex]}
-					TrackerTable={CheckTrackerTable}
-					trackerTableProps={{
-						checks: activeConnection.remainingItems
-					}}
+					trackerTable={checkTrackerTable}
+					tableFilters={hintTrackerTableFilters}
 				></GameTrackerPanelSubview>
 			{/if}
 		</div>
 	</div>
+{/snippet}
+
+{#snippet hintTrackerTable()}
+	<HintTrackerTable activeSlotName={activeConnection.slotName} hints={hintsWithFiltersApplied}
+	></HintTrackerTable>
+{/snippet}
+
+{#snippet checkTrackerTable()}
+	<CheckTrackerTable checks={activeConnection.remainingItems}></CheckTrackerTable>
+{/snippet}
+
+{#snippet hintTrackerTableFilters()}
+	<StringFilter
+		id="receiving-player"
+		filterLabel="Receiving Player"
+		items={receivingPlayerFilterItems}
+		bind:selectedItem={filterState[0]}
+	></StringFilter>
+	<StringFilter
+		id="finding-player"
+		filterLabel="Finding Player"
+		items={findingPlayerFilterItems}
+		bind:selectedItem={filterState[1]}
+	></StringFilter>
+	<StringFilter
+		id="location-name"
+		filterLabel="Found Status"
+		items={foundFilterItems}
+		bind:selectedItem={filterState[2]}
+	></StringFilter>
 {/snippet}
 
 {#snippet hintsBadges()}

@@ -2,7 +2,7 @@
 	import { modals } from 'svelte-modals';
 	import Plus from '@lucide/svelte/icons/plus';
 	import GlobeX from '@lucide/svelte/icons/globe-x';
-	import ChevronRight from '@lucide/svelte/icons/chevron-right';
+	import ChevronDown from '@lucide/svelte/icons/chevron-down';
 	import { connectionManager } from '$lib/clients/connection-manager.svelte';
 	import type { Connection } from '$lib/clients/connection.svelte';
 	import AddConnectionModal from '$lib/components/modals/AddConnectionModal.svelte';
@@ -62,8 +62,8 @@
 			>
 				<Plus onclick={openAddConnectionModal}></Plus>
 			</Tooltip>
-			<ChevronRight class={['icon-md transition duration-300', open ? 'rotate-90' : '']}
-			></ChevronRight>
+			<ChevronDown class={['icon icon-md transition duration-300', open ? '-scale-y-100' : '']}
+			></ChevronDown>
 		</div>
 	</summary>
 	<div class="mt-4 flex panel h-full min-h-0 flex-col gap-2 bg-accent 2xl:gap-4">

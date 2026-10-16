@@ -3,7 +3,7 @@
 	import type { Connection } from '$lib/clients/connection.svelte';
 	import { mapMessageWithColors } from '$lib/messages/color-message';
 	import { parseChatInput } from '$lib/messages/parse-chat-input';
-	import ChevronRight from '@lucide/svelte/icons/chevron-right';
+	import ChevronDown from '@lucide/svelte/icons/chevron-down';
 	import Send from '@lucide/svelte/icons/send';
 
 	let { open = $bindable(true) } = $props();
@@ -76,8 +76,8 @@
 >
 	<summary class="flex h-fit w-full items-center justify-between">
 		<h2 class="flex items-center gap-2 text-fluid-lg">Multiworld Messages</h2>
-		<ChevronRight class={['icon-md transition duration-300', open ? 'rotate-90' : '']}
-		></ChevronRight>
+		<ChevronDown class={['icon icon-md transition duration-300', open ? '-scale-y-100' : '']}
+		></ChevronDown>
 	</summary>
 	<div class="mt-4 flex h-full min-h-0 flex-col gap-2 2xl:gap-4">
 		<div
