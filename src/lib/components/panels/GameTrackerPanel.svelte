@@ -32,21 +32,17 @@
 		return activeConnection.hints.filter((hint) => filterHintByConditional(hint));
 	});
 	let filterState = $state([null, null, null] as SelectedFilterItem[]);
-	let receivingPlayerFilterItems = $derived(
+	let filterItems = $derived([
 		[...new Set(hintsWithFiltersApplied.flatMap((hint) => hint.item.receiver.name))].map(
 			(hint) => ({
 				label: hint,
 				value: hint
 			})
-		)
-	);
-	let findingPlayerFilterItems = $derived(
+		),
 		[...new Set(hintsWithFiltersApplied.flatMap((hint) => hint.item.sender.name))].map((hint) => ({
 			label: hint,
 			value: hint
-		}))
-	);
-	let foundFilterItems = $derived(
+		})),
 		[
 			...new Set(
 				hintsWithFiltersApplied.flatMap((hint) => (hint.status === 40 ? 'Found' : 'Not Found'))
@@ -55,19 +51,33 @@
 			label: hint,
 			value: hint
 		}))
-	);
+	]);
 
 	const filterHintByConditional = (hint: Hint): boolean => {
-		const appliedFilterLabels = filterState.map((filter) => filter?.label);
-
+		let [appliedLabel1, appliedLabel2, appliedLabel3] = [
+			...filterState.map((filter) => filter?.label)
+		];
 		if (
-			hint.item.receiver.name !== appliedFilterLabels[0] &&
-			hint.item.sender.name !== appliedFilterLabels[1] &&
-			(hint.status === 40 ? 'Found' : 'Not Found') !== appliedFilterLabels[2]
+			hint.item.receiver.name !== appliedLabel1 &&
+			hint.item.sender.name !== appliedLabel2 &&
+			(hint.status === 40 ? 'Found' : 'Not Found') !== appliedLabel3
 		) {
 			return false;
 		} else {
-			return true;
+			let shouldIncludeRow = true;
+
+			if (hint.item.receiver.name !== appliedLabel1 && appliedLabel1 !== null) {
+				shouldIncludeRow = false;
+			} else if (hint.item.sender.name !== appliedLabel2 && appliedLabel2 !== null) {
+				shouldIncludeRow = false;
+			} else if (
+				(hint.status === 40 ? 'Found' : 'Not Found') !== appliedLabel3 &&
+				appliedLabel3 !== null
+			) {
+				shouldIncludeRow = false;
+			}
+
+			return shouldIncludeRow;
 		}
 	};
 </script>
@@ -144,19 +154,19 @@
 	<StringFilter
 		id="receiving-player"
 		filterLabel="Receiving Player"
-		items={receivingPlayerFilterItems}
+		items={filterItems[0]}
 		bind:selectedItem={filterState[0]}
 	></StringFilter>
 	<StringFilter
 		id="finding-player"
 		filterLabel="Finding Player"
-		items={findingPlayerFilterItems}
+		items={filterItems[1]}
 		bind:selectedItem={filterState[1]}
 	></StringFilter>
 	<StringFilter
 		id="location-name"
 		filterLabel="Found Status"
-		items={foundFilterItems}
+		items={filterItems[2]}
 		bind:selectedItem={filterState[2]}
 	></StringFilter>
 {/snippet}
