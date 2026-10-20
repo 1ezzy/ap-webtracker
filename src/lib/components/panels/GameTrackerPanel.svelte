@@ -55,7 +55,7 @@
 
 	const filterHintByConditional = (hint: Hint): boolean => {
 		let [appliedLabel1, appliedLabel2, appliedLabel3] = [
-			...filterState.map((filter) => filter?.label)
+			...filterState.map((filter) => filter?.label ?? null)
 		];
 		if (
 			hint.item.receiver.name !== appliedLabel1 &&
