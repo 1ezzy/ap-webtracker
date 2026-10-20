@@ -5,8 +5,9 @@
 	import CheckTrackerTable from '$lib/components/tables/CheckTrackerTable.svelte';
 	import GameTrackerPanelSubview from '$lib/components/panels/GameTrackerPanelSubview.svelte';
 	import StringFilter from '$lib/components/filters/StringFilter.svelte';
-	import type { SelectedFilterItem } from '$lib/components/filters/filter.types';
 	import type { Hint } from 'archipelago.js';
+	import type { SelectedFilterItem } from '$lib/types/filter.types';
+	import type { TableItem } from '$lib/types/table-item.types';
 
 	let games = $derived(
 		connectionManager.connectedPlayers
@@ -24,36 +25,43 @@
 
 	// filter-specific logic
 	// TODO: should this be moved to a service?
-	let hintsWithFiltersApplied = $derived.by(() => {
-		if (filterState.every((filter) => filter === null)) {
-			return activeConnection.hints;
-		}
-
-		return activeConnection.hints.filter((hint) => filterHintByConditional(hint));
+	let hintsWithFiltersApplied = $derived.by<TableItem<Hint>[]>(() => {
+		return activeConnection.hints.map((hint) => mapHintToTableItem(hint));
 	});
 	let filterState = $state([null, null, null] as SelectedFilterItem[]);
 	let filterItems = $derived([
-		[...new Set(hintsWithFiltersApplied.flatMap((hint) => hint.item.receiver.name))].map(
-			(hint) => ({
-				label: hint,
-				value: hint
-			})
-		),
-		[...new Set(hintsWithFiltersApplied.flatMap((hint) => hint.item.sender.name))].map((hint) => ({
-			label: hint,
-			value: hint
-		})),
-		[
-			...new Set(
-				hintsWithFiltersApplied.flatMap((hint) => (hint.status === 40 ? 'Found' : 'Not Found'))
+		hintsWithFiltersApplied
+			.map((hint) => ({
+				label: hint.item.item.receiver.name,
+				value: hint.item.item.receiver.name,
+				disabled: !hint.visible && filterState[0] === null
+			}))
+			.filter((value, index, self) => index === self.findIndex((t) => t.value === value.value)),
+		hintsWithFiltersApplied
+			.map((hint) => ({
+				label: hint.item.item.sender.name,
+				value: hint.item.item.sender.name,
+				disabled: !hint.visible && filterState[1] === null
+			}))
+			.filter((value, index, self) => index === self.findIndex((t) => t.value === value.value)),
+		hintsWithFiltersApplied
+			.map((hint) =>
+				hint.item.status === 40
+					? { label: 'Found', value: 'found', disabled: !hint.visible && filterState[2] === null }
+					: {
+							label: 'Not Found',
+							value: 'not-found',
+							disabled: !hint.visible && filterState[2] === null
+						}
 			)
-		].map((hint) => ({
-			label: hint,
-			value: hint
-		}))
+			.filter((value, index, self) => index === self.findIndex((t) => t.value === value.value))
 	]);
 
-	const filterHintByConditional = (hint: Hint): boolean => {
+	const mapHintToTableItem = (hint: Hint): TableItem<Hint> => {
+		if (filterState.every((filter) => filter === null)) {
+			return { item: hint, visible: true };
+		}
+
 		let [appliedLabel1, appliedLabel2, appliedLabel3] = [
 			...filterState.map((filter) => filter?.label ?? null)
 		];
@@ -62,7 +70,7 @@
 			hint.item.sender.name !== appliedLabel2 &&
 			(hint.status === 40 ? 'Found' : 'Not Found') !== appliedLabel3
 		) {
-			return false;
+			return { item: hint, visible: false };
 		} else {
 			let shouldIncludeRow = true;
 
@@ -77,7 +85,7 @@
 				shouldIncludeRow = false;
 			}
 
-			return shouldIncludeRow;
+			return { item: hint, visible: shouldIncludeRow };
 		}
 	};
 </script>
@@ -142,7 +150,7 @@
 {/snippet}
 
 {#snippet hintTrackerTable()}
-	<HintTrackerTable activeSlotName={activeConnection.slotName} hints={hintsWithFiltersApplied}
+	<HintTrackerTable activeSlotName={activeConnection.slotName} items={hintsWithFiltersApplied}
 	></HintTrackerTable>
 {/snippet}
 

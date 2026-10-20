@@ -1,6 +1,6 @@
 <script lang="ts">
 	import FilterDropdown from '$lib/components/filters/FilterDropdown.svelte';
-	import type { FilterItem, SelectedFilterItem } from './filter.types';
+	import type { FilterItem, SelectedFilterItem } from '$lib/types/filter.types';
 
 	let {
 		id,
@@ -40,11 +40,24 @@
 			<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
 			<span
 				role="listitem"
-				class="w-full cursor-pointer touch-none rounded-md py-1 text-fluid-xs hover:bg-surface-300"
+				class={[
+					'w-full touch-none rounded-md py-1 text-fluid-xs',
+					item.disabled
+						? 'cursor-not-allowed text-surface-700'
+						: 'cursor-pointer hover:bg-surface-300'
+				]}
 				class:bg-surface-300={selectedItem?.value === item.value}
 				class:text-primary={selectedItem?.value === item.value}
-				onclick={() => handleFilterApplied(item)}
-				onkeydown={() => handleFilterApplied(item)}
+				onclick={() => {
+					if (!item.disabled) {
+						handleFilterApplied(item);
+					}
+				}}
+				onkeydown={() => {
+					if (!item.disabled) {
+						handleFilterApplied(item);
+					}
+				}}
 			>
 				{item.label}
 			</span>

@@ -1,7 +1,8 @@
 <script lang="ts">
+	import type { TableItem } from '$lib/types/table-item.types';
 	import type { Hint } from 'archipelago.js';
 
-	let { hints, activeSlotName }: { hints: Hint[]; activeSlotName: string } = $props();
+	let { items, activeSlotName }: { items: TableItem<Hint>[]; activeSlotName: string } = $props();
 </script>
 
 <div class="mt-4 flex min-h-0 flex-1 flex-col">
@@ -17,28 +18,34 @@
 				</tr>
 			</thead>
 			<tbody>
-				{#each hints as hint (hint.item)}
-					<tr class="h-8 border-t-2 border-white">
-						<td
-							class="table-cell"
-							class:text-success={hint.item.receiver.name === activeSlotName}
-							class:text-secondary-400={hint.item.receiver.name !== activeSlotName}
-						>
-							{hint.item.receiver.name}
-						</td>
-						<td class="table-cell text-tertiary">{hint.item.name}</td>
-						<td
-							class="table-cell"
-							class:text-success={hint.item.sender.name === activeSlotName}
-							class:text-secondary-400={hint.item.sender.name !== activeSlotName}
-						>
-							{hint.item.sender.name}
-						</td>
-						<td class="table-cell text-accent">{hint.item.locationName}</td>
-						<td class="table-cell" class:text-success={hint.found} class:text-danger={!hint.found}>
-							{hint.found ? 'Found' : 'Not Found'}
-						</td>
-					</tr>
+				{#each items as tableItem (tableItem.item)}
+					{#if tableItem.visible === true}
+						<tr class="h-8 border-t-2 border-white">
+							<td
+								class="table-cell"
+								class:text-success={tableItem.item.item.receiver.name === activeSlotName}
+								class:text-secondary-400={tableItem.item.item.receiver.name !== activeSlotName}
+							>
+								{tableItem.item.item.receiver.name}
+							</td>
+							<td class="table-cell text-tertiary">{tableItem.item.item.name}</td>
+							<td
+								class="table-cell"
+								class:text-success={tableItem.item.item.sender.name === activeSlotName}
+								class:text-secondary-400={tableItem.item.item.sender.name !== activeSlotName}
+							>
+								{tableItem.item.item.sender.name}
+							</td>
+							<td class="table-cell text-accent">{tableItem.item.item.locationName}</td>
+							<td
+								class="table-cell"
+								class:text-success={tableItem.item.found}
+								class:text-danger={!tableItem.item.found}
+							>
+								{tableItem.item.found ? 'Found' : 'Not Found'}
+							</td>
+						</tr>
+					{/if}
 				{/each}
 			</tbody>
 		</table>
